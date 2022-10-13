@@ -15,7 +15,7 @@ def main(target_url):
         target_url = 'http://' + target_url
     if target_url[-1] != '/':
         target_url += '/'
-    nc_erp_sql,POC_1(target_url)
+    nc_erp_sql.POC_1(target_url)
     list = ['nc_beanshell_rce','nc_upload_rce','nc_u8_test_sql','nc_erp_directory',
             '用友畅捷通T_updata_任意文件上传','nc_U8_getSessionList','fe_oa_directiry','nc_readfile_everything']
     for i in list:
