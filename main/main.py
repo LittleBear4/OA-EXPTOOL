@@ -68,9 +68,9 @@ def htdlpoc(xz, target_url):
 #红帆        
 def hfpoc(xz, target_url):
     if xz == '1':
-        os.system("python3 main/HtianDL/main.py -u " + target_url)
+        os.system("python3 main/ioffice/main.py -u " + target_url)
     if xz == '2':
-        os.system("python3 main/HtianDL/main.py -f " + target_url)
+        os.system("python3 main/ioffice/main.py -f " + target_url)
      
 #金蝶        
 def jdpoc(xz, target_url):
