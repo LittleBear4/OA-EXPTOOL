@@ -305,19 +305,19 @@ class hacktools(cmd.Cmd):
 输入的参数有误,返回上一层''', style='bold red')
             return    
 
-    def do_qlscan(self, line):
-        #启莱OA漏洞POC
+    def do_zxscan(self, line):
+        #志翔OA漏洞POC
         print('''\033[33m
-        1.启莱漏洞综合扫描
-        2.启莱漏洞综合批量扫描
+        1.志翔漏洞综合扫描
+        2.志翔漏洞综合批量扫描
         ''')
         xz = input("\033[1;31m请输入你的选项：\033[32m")
         if xz == '1':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
-            main.main.qlpoc(xz, target_url)
+            main.main.zxpoc(xz, target_url)
         elif xz == '2':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
-            main.main.qlpoc(xz, target_url)
+            main.main.zx8poc(xz, target_url)
         elif xz =='exit':
             return
         else:
@@ -327,48 +327,8 @@ class hacktools(cmd.Cmd):
             return    
             
         
-    def do_qlscan(self, line):
-        #致翔OA漏洞POC
-        print('''\033[33m
-        1.致翔漏洞综合扫描
-        2.致翔漏洞综合批量扫描
-        ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
-            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
-            main.main.zxpoc(xz, target_url)
-        elif xz == '2':
-            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
-            main.main.zxpoc(xz, target_url)
-        elif xz =='exit':
-            return
-        else:
-            loading()
-            console.print('''\r\n
-输入的参数有误,返回上一层''', style='bold red')
-            return    
-            
-            
-    def do_qlscan(self, line):
-        #致翔OA漏洞POC
-        print('''\033[33m
-        1.致翔漏洞综合扫描
-        2.致翔漏洞综合批量扫描
-        ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
-            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
-            main.main.zxpoc(xz, target_url)
-        elif xz == '2':
-            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
-            main.main.zxpoc(xz, target_url)
-        elif xz =='exit':
-            return
-        else:
-            loading()
-            console.print('''\r\n
-输入的参数有误,返回上一层''', style='bold red')
-            return   
+   
+             
 
 
 
