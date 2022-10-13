@@ -4,7 +4,7 @@ import argparse
 import multiprocessing
 from pyfiglet import Figlet
 from rich.console import Console
-from poc import (金蝶OA_server_file_目录遍历, 金蝶OA_path_任意文件下载, 金蝶OA_Apusic应用服务器_目录遍历s)
+from poc import (金蝶OA_server_file_目录遍历, 金蝶OA_path_任意文件下载, 金蝶OA_Apusic应用服务器_目录遍历)
 
 console = Console()
 def now_time():
