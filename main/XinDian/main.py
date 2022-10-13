@@ -16,7 +16,7 @@ def main(target_url):
     if target_url[-1] != '/':
         target_url += '/'
     list = ['新点OA_Excel_敏感信息泄露']
-    for i in list1:
+    for i in list:
         eval(i + ".main(target_url)")
         time.sleep(0.2)
 
