@@ -40,7 +40,7 @@ xxx.png
     print(path_url)
             
     
-def main()   
+def main():
     if target_url[:4]!='http':
         target_url = 'http://' + target_url
     if target_url[-1]!='/':
