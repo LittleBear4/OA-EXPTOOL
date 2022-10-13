@@ -31,7 +31,7 @@ def main(target_url):
             console.print(now_time() + ' [SUCCESS]  金蝶OA server_file 目录遍历漏洞存在{}'.format(plani_url), style='bold green')
         elif respones2.status_code == 200:
             console.print(now_time() + ' [SUCCESS]  金蝶OA server_file 目录遍历漏洞存在{}'.format(window_url), style='bold green')
-        elif respones3.status_code == 200::
+        elif respones3.status_code == 200:
             console.print(now_time() + ' [SUCCESS]  金蝶OA server_file 目录遍历漏洞存在{}'.format(linux_url), style='bold green')
         else:
             console.print(now_time() + ' [WARNING]  金蝶OA server_file 目录遍历漏洞不存在', style='bold red ')
