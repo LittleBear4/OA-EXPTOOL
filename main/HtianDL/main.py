@@ -4,7 +4,7 @@ import argparse
 import multiprocessing
 from pyfiglet import Figlet
 from rich.console import Console
-from poc import (华天动力OA_upload_任意文件上传, 华天动力OA_8000版_sql)
+from poc import ( 华天动力OA_8000版_sql)
 
 console = Console()
 def now_time():
@@ -15,7 +15,7 @@ def main(target_url):
         target_url = 'http://' + target_url
     if target_url[-1] != '/':
         target_url += '/'
-    list = ['华天动力OA_upload_任意文件上传', '华天动力OA_8000版_sql']
+    list = [ '华天动力OA_8000版_sql']
     for i in list:
         eval(i + ".main(target_url)")
         time.sleep(0.2)
