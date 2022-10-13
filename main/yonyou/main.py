@@ -17,7 +17,7 @@ def main(target_url):
         target_url += '/'
     list = ['nc_beanshell_rce','nc_upload_rce','nc_u8_test_sql','nc_erp_sql','nc_erp_directory',
             '用友畅捷通20220910任意文件上传','nc_U8_getSessionList','fe_oa_directiry','nc_readfile_everything']
-    for i in list1:
+    for i in list:
         eval(i + ".main(target_url)")
         time.sleep(0.2)
 
