@@ -26,7 +26,7 @@ def main(target_url):
         requests.packages.urllib3.disable_warnings()
         respones1 = requests.get(plani_url, headers=headers, verify=False)
         respones2 = requests.get(window_url, headers=headers, verify=False)
-        respones2 = requests.get(linux_url, headers=headers, verify=False)
+        respones3 = requests.get(linux_url, headers=headers, verify=False)
         if respones1.status_code == 200:
             console.print(now_time() + ' [SUCCESS]  金蝶OA server_file 目录遍历漏洞存在{}'.format(plani_url), style='bold green')
         elif respones2.status_code == 200:
