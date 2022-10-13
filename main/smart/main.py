@@ -22,7 +22,7 @@ def main(target_url):
 
     
 if __name__ == '__main__':
-    console.print(Figlet(font='slant').renderText('Landray OA-Exp'), style='bold blue')
+    console.print(Figlet(font='slant').renderText('smart OA-Exp'), style='bold blue')
     try:
         parser = argparse.ArgumentParser()
         parser.add_argument('-u', '--url', dest='url', help='Target Url')
