@@ -40,7 +40,7 @@
 
 
 ### 安装教程
-> python scan.py
+> python scan.py  （python3 请注意变量 这是python的问题 当然也是我的问题）
 > 
 > install # 安装第三方库
 > 
