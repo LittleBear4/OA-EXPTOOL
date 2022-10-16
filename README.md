@@ -40,7 +40,7 @@
 
 
 ### 安装教程
-> python3 scan.py
+> python scan.py
 > 
 > install # 安装第三方库
 > 
