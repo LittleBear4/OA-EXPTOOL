@@ -1,5 +1,10 @@
 # OA - EXPTOOL OA综合利用工具(调试完成)
 
+### 通知
+最近小伙伴反应出现bug无法使用的问题
+一个问题系统报错：请看修复第一条
+请修改环境变量：以python的环境变量运行 python3 否则会报错
+
 ### 使用
 
 - 第一次使用脚本请运行pip3 install requirements.txt
