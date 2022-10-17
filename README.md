@@ -62,6 +62,5 @@ python运行python2的话会出现中文乱码从而报错
 
 联系方式/问题群聊：
  
-![vx](readme/vx.jpg)
+![vx](readme/vx.jpg) ![ql](readme/ql.jpg)
 
-![ql](readme/ql.jpg)
