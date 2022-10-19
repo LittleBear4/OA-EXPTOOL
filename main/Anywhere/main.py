@@ -4,7 +4,7 @@ import argparse
 import multiprocessing
 from pyfiglet import Figlet
 from rich.console import Console
-from poc import (通达OA_v11_5_swfupload_sql, 通达OA_v11_5_任意用户登录, 通达OA_v11_6_insert_sql, 通达OA_v11_6_report_bi_sql, 通达OA_v11_6_任意文件删除_RCE, 通达OA_v11_7_后台sql注入,通达OA_v11_7_在线用户登录, 通达OA_v11_8_api_任意文件上传, 通达OA_v11_8_getway_远程文件包含, 通达OA_v2014_get_contactlist, 通达OA_v2017_action_upload,通达OA_v2017_任意用户登录)
+from poc import (通达OA_v11_5_swfupload_sql, 通达OA_v11_5_任意用户登录, 通达OA_v11_6_insert_sql, 通达OA_v11_6_report_bi_sql, 通达OA_v11_6_任意文件删除_RCE, 通达OA_v11_7_后台sql注入,通达OA_v11_7_在线用户登录, 通达OA_v11_8_api_任意文件上传, 通达OA_v11_8_getway_远程文件包含, 通达OA_v2014_get_contactlist, 通达OA_v2017_action_upload,通达OA_v2017_任意用户登录,通达OA_v11_8_logincheck,通达OA_v11_8_后台包含xss)
 
 console = Console()
 def now_time():
@@ -18,7 +18,7 @@ def main(target_url):
     list = ['通达OA_v11_5_swfupload_sql', '通达OA_v11_5_任意用户登录','通达OA_v11_6_insert_sql',
             '通达OA_v11_6_report_bi_sql', '通达OA_v11_6_任意文件删除_RCE', '通达OA_v11_7_后台sql注入',
             '通达OA_v11_7_在线用户登录', '通达OA_v11_8_api_任意文件上传', '通达OA_v11_8_getway_远程文件包含',
-            '通达OA_v2014_get_contactlist', '通达OA_v2017_action_upload', '通达OA_v2017_任意用户登录']
+            '通达OA_v2014_get_contactlist', '通达OA_v2017_action_upload', '通达OA_v2017_任意用户登录','通达OA_v11_8_logincheck','通达OA_v11_8_后台包含xss']
     for i in list:
         eval(i + ".main(target_url)")
         time.sleep(0.2)

