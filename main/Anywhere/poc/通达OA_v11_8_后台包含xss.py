@@ -45,7 +45,6 @@ def main(target_url):
     Cookie = Target_URL(target_url)
     if Cookie == None:
         console.print(now_time() + ' [WARNING]  通达OA v11.8 后台文件包含漏洞利用失败，未能获取Cookie', style='bold red ')
-        sys.exit(0)
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
