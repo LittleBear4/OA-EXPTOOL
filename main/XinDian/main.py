@@ -4,9 +4,14 @@ import argparse
 import multiprocessing
 from pyfiglet import Figlet
 from rich.console import Console
+import sys
+import os
+#sys.path.append(os.path.abspath('main')) 
+#from creatlogtext import text_create
 from poc import (新点OA_Excel_敏感信息泄露)
 
-console = Console()
+console = Console() 
+file_name='xindian'
 def now_time():
     return time.strftime("[%H:%M:%S] ", time.localtime())
     
@@ -15,6 +20,7 @@ def main(target_url):
         target_url = 'http://' + target_url
     if target_url[-1] != '/':
         target_url += '/'
+    console.print(now_time() + " [INFO]     正在检测:{}".format(target_url)+'\n', style='bold yellow')
     list = ['新点OA_Excel_敏感信息泄露']
     for i in list:
         eval(i + ".main(target_url)")
@@ -36,7 +42,6 @@ if __name__ == '__main__':
             pool.close()
             pool.join()
         elif args.url:
-            console.print(now_time() + " [INFO]     正在检测:{}".format(args.url)+'\n', style='bold yellow')
             main(args.url)
         else:
             console.print('缺少URL目标, 请使用 [-u URL] or [-f FILE]')
