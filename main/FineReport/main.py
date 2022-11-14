@@ -4,7 +4,7 @@ import argparse
 import multiprocessing
 from pyfiglet import Figlet
 from rich.console import Console
-from poc import (帆软_v8_get_json_任意文件读取, 帆软_v9_design_文件覆盖上传)
+from poc import (帆软_v8_get_json_任意文件读取, 帆软_v9_design_文件覆盖上传,帆软_2012_信息泄露)
 
 console = Console()
 def now_time():
@@ -15,7 +15,7 @@ def main(target_url):
         target_url = 'http://' + target_url
     if target_url[-1] != '/':
         target_url += '/'
-    list = ['帆软_v8_get_json_任意文件读取', '帆软_v9_design_文件覆盖上传']
+    list = ['帆软_v8_get_json_任意文件读取', '帆软_v9_design_文件覆盖上传','帆软_2012_信息泄露']
     for i in list:
         eval(i + ".main(target_url)")
         time.sleep(0.2)

@@ -68,7 +68,7 @@ def main(target_url):
         target_url = 'http://' + target_url
     if target_url[-1]!='/':
         target_url += '/' 
-    console.print(now_time() + " [INFO]     正在检测帆软报表 V9 design_save_svg 任意文件覆盖文件上传", style='bold blue')
+    console.print(now_time() + " [INFO]     正在检测帆软报表 V8 get_json 任意文件读取漏洞", style='bold blue')
     POC_1(target_url)
     
 
