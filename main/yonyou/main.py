@@ -4,7 +4,7 @@ import multiprocessing
 from pyfiglet import Figlet
 from rich.console import Console
 from poc import nc_beanshell_rce,nc_upload_rce,nc_erp_sql,nc_u8_test_sql,nc_erp_directory
-from poc import 用友畅捷通T_updata_任意文件上传,nc_U8_getSessionList,fe_oa_directiry, nc_readfile_everything
+from poc import 用友畅捷通T_updata_任意文件上传,nc_U8_getSessionList,fe_oa_directiry, nc_readfile_everything,nc_xbr_rce,用友_U8_f5_sql,用友GRP_u8_upload_data
 
 console = Console()
 def now_time():
@@ -17,7 +17,7 @@ def main(target_url):
         target_url += '/'
     nc_erp_sql.POC_1(target_url)
     list = ['nc_beanshell_rce','nc_upload_rce','nc_u8_test_sql','nc_erp_directory',
-            '用友畅捷通T_updata_任意文件上传','nc_U8_getSessionList','fe_oa_directiry','nc_readfile_everything']
+            '用友畅捷通T_updata_任意文件上传','nc_U8_getSessionList','fe_oa_directiry','nc_readfile_everything','nc_xbr_rce','用友_U8_f5_sql','用友GRP_u8_upload_data']
     for i in list:
         eval(i + ".main(target_url)")
         time.sleep(0.2)

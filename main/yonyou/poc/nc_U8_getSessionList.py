@@ -27,7 +27,7 @@ def main(target_url):
     try:
         requests.packages.urllib3.disable_warnings()
         response = requests.get(url=url, headers=headers, timeout=30)
-        if response.status_code == 200 and response.text is not None:
+        if response.status_code == 200 and response.text != None:
             console.print(now_time() +  " [SUCCESS]  该系统可能数据库管理信息泄漏漏洞，具体URL为:{}".format(url),style='bold green')
         else:
             console.print(now_time() +  ' [WARNING]  该系统不存在此漏洞', style='bold red')

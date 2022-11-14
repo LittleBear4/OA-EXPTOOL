@@ -22,8 +22,8 @@ def main(target_url):
     }
     try:
         requests.packages.urllib3.disable_warnings()
-        response = requests.get(url=url, headers=headers, timeout=30)
-        if response.status_code == 200 and response.text is not None:
+        response = requests.get(url=url, headers=headers)
+        if response.status_code == 200:
             console.print(now_time() +  " [SUCCESS]  该系统可能存在目录遍历漏洞，具体URL为:{}".format(url),style='bold green')
         else:
             console.print(now_time() +  ' [WARNING]  FE协作办公平台目录遍历漏洞不存在', style='bold red')

