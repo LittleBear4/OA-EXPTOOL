@@ -4,7 +4,7 @@ import argparse
 import multiprocessing
 from pyfiglet import Figlet
 from rich.console import Console
-from poc import (红帆OA_IOFILE_任意文件读取, 红帆OA_前台sql注入)
+from poc import (红帆OA_IOFILE_任意文件读取, 红帆OA_医疗云sql注入,红帆OA_非医疗版_任意文件上传)
 
 console = Console()
 def now_time():
@@ -15,7 +15,7 @@ def main(target_url):
         target_url = 'http://' + target_url
     if target_url[-1] != '/':
         target_url += '/'
-    list = ['红帆OA_IOFILE_任意文件读取', '红帆OA_前台sql注入']
+    list = ['红帆OA_IOFILE_任意文件读取', '红帆OA_医疗云sql注入','红帆OA_非医疗版_任意文件上传']
     for i in list:
         eval(i + ".main(target_url)")
         time.sleep(0.2)
