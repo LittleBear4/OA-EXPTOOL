@@ -30,20 +30,21 @@ python运行python2的话会出现中文乱码从而报错
 
 
 
-####修复记录10月13号
+####更新记录11月14号
 ----
 
-修复了环境变量问题 统一使用python为默认的py3环境变量参数
+增加帆软2017敏感信息泄露poc
 
-修复了变量错误的问题
+增加泛微OA_hrmcareerApply_sql poc,泛微OA_mysql_config数据库信息泄漏,泛微OA_jquery_filetree,泛微OA_Verify_QuickLogin
+泛微OA_signnature_任意文件访问,泛微OA_uploader_OPerate_2022,泛微OA_V10_前台sql
 
-修复部分scan模块无法运行的问题
+增加红帆OA_非医疗版_任意文件上传
 
-修复了requirements文件报错问题
+增加万户OA_document_sql，万户OA DownloadServlet 任意文件读取漏洞
 
-修复了部分poc编码和报错问题
+增加nc_xbr_rce，用友_U8_f5_sql，用友GRP_u8_upload_data
 
-修复模块报错问题
+优化优化泛微OA的检测，对检测增加内容判断，提高准确性，优化红帆漏洞poc增加payload，优化蓝凌oa poc的准确性 去掉部分exp，优化通达后台xxs包含漏洞的线程问题，优化万户模块下的poc提高准确性
 ## 主界面
 
 ----
