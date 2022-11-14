@@ -12,7 +12,7 @@ console = Console()
 def loading():
     for i in range(0,105):
         time.sleep(0.005)
-        sys.stdout.write('-')
+        print('-',end = "", file=sys.stdout, flush=True)
 def index():
     if name=='nt':
         _ = system('cls')
@@ -65,14 +65,20 @@ class hacktools(cmd.Cmd):
     def do_zyscan(self, line):
         #致远OA漏洞POC
         print('''\033[33m
-        1.致远漏洞综合扫描
-        2.致远漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input('\033[1;31mzyscan >>\033[32m')
+        if xz == 'action':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.zypoc(xz, target_url)        
+        elif xz == 'static':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.zypoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.zypoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.zypoc(xz, target_url)
         elif xz =='exit':
@@ -87,14 +93,20 @@ class hacktools(cmd.Cmd):
     def do_tdscan(self, line):
         #通达OA漏洞POC
         print('''\033[33m
-        1.通达漏洞综合扫描
-        2.通达漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mtdscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.tdpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.tdpoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.tdpoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.tdpoc(xz, target_url)
         elif xz =='exit':
@@ -109,14 +121,20 @@ class hacktools(cmd.Cmd):
     def do_yyscan(self, line):
         #用友OA漏洞POC
         print('''\033[33m
-        1.用友漏洞综合扫描
-        2.用友漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31myyscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.yypoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.yypoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.yypoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.yypoc(xz, target_url)
         elif xz =='exit':
@@ -131,14 +149,20 @@ class hacktools(cmd.Cmd):
     def do_whscan(self, line):
         #万户OA漏洞POC
         print('''\033[33m
-        1.万户漏洞综合扫描
-        2.万户漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mwhscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.whpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.whpoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.whpoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.whpoc(xz, target_url)
         elif xz =='exit':
@@ -153,14 +177,20 @@ class hacktools(cmd.Cmd):
     def do_llscan(self, line):
         #蓝凌OA漏洞POC
         print('''\033[33m
-        1.蓝凌漏洞综合扫描
-        2.蓝凌漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mllscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.llpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.llpoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.llpoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.llpoc(xz, target_url)
         elif xz =='exit':
@@ -175,14 +205,20 @@ class hacktools(cmd.Cmd):
     def do_fwscan(self, line):
         #泛微OA漏洞POC
         print('''\033[33m
-        1.泛微漏洞综合扫描
-        2.泛微漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mfwscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.fwpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.fwpoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.fwpoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.fwpoc(xz, target_url)
         elif xz =='exit':
@@ -196,14 +232,20 @@ class hacktools(cmd.Cmd):
     def do_frscan(self, line):
         #帆软OA漏洞POC
         print('''\033[33m
-        1.帆软漏洞综合扫描
-        2.帆软漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mfrscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.frpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.frpoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.frpoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.frpoc(xz, target_url)
         elif xz =='exit':
@@ -218,14 +260,20 @@ class hacktools(cmd.Cmd):
     def do_htdlscan(self, line):
         #华天动力OA漏洞POC
         print('''\033[33m
-        1.华天动力漏洞综合扫描
-        2.华天动力漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mHTdlscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.htdlpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.htdlpoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.htdlpoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.htdlpoc(xz, target_url)
         elif xz =='exit':
@@ -241,14 +289,20 @@ class hacktools(cmd.Cmd):
     def do_jdscan(self, line):
         #金蝶OA漏洞POC
         print('''\033[33m
-        1.金蝶漏洞综合扫描
-        2.金蝶漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mjdscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.jdpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.jdpoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.jdpoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.jdpoc(xz, target_url)
         elif xz =='exit':
@@ -264,14 +318,20 @@ class hacktools(cmd.Cmd):
     def do_hfscan(self, line):
         #红帆OA漏洞POC
         print('''\033[33m
-        1.红帆漏洞综合扫描
-        2.红帆漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mhfscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.hfpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.hfpoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.hfpoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.hfpoc(xz, target_url)
         elif xz =='exit':
@@ -287,16 +347,22 @@ class hacktools(cmd.Cmd):
     def do_qlscan(self, line):
         #启莱OA漏洞POC
         print('''\033[33m
-        1.启莱漏洞综合扫描
-        2.启莱漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mqlscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
-            main.main.qlpoc(xz, target_url)
-        elif xz == '2':
+            main.main.hfpoc(xz, target_url)
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.hfpoc(xz, target_url)
+        elif xz == 'actions':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
-            main.main.qlpoc(xz, target_url)
+            main.main.hfpoc(xz, target_url)
+        elif xz == 'statics':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.hfpoc(xz, target_url)
         elif xz =='exit':
             return
         else:
@@ -308,16 +374,22 @@ class hacktools(cmd.Cmd):
     def do_zxscan(self, line):
         #志翔OA漏洞POC
         print('''\033[33m
-        1.志翔漏洞综合扫描
-        2.志翔漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mzxscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.zxpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.zxpoc(xz, target_url)
+        elif xz == 'actions':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
-            main.main.zx8poc(xz, target_url)
+            main.main.zxpoc(xz, target_url)
+        elif xz == 'statics':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.zxpoc(xz, target_url)
         elif xz =='exit':
             return
         else:
@@ -335,14 +407,20 @@ class hacktools(cmd.Cmd):
     def do_zmscan(self, line):
         #智明OA漏洞POC
         print('''\033[33m
-        1.智明漏洞综合扫描
-        2.智明漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mzmscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.zmpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.zmpoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.zmpoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.zmpoc(xz, target_url)
         elif xz =='exit':
@@ -357,14 +435,20 @@ class hacktools(cmd.Cmd):
     def do_xdscan(self, line):
         #新点OA漏洞POC
         print('''\033[33m
-        1.新点漏洞综合扫描
-        2.新点漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mxdscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.xdpoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.xdpoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.xdpoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.xdpoc(xz, target_url)
         elif xz =='exit':
@@ -378,14 +462,20 @@ class hacktools(cmd.Cmd):
     def do_ymscan(self, line):
         #一米OA漏洞POC
         print('''\033[33m
-        1.一米漏洞综合扫描
-        2.一米漏洞综合批量扫描
+        action/actions:动态打印结果 #无保存结果
+        static/statics:静默打印结果 #无显示输出只保存结果
         ''')
-        xz = input("\033[1;31m请输入你的选项：\033[32m")
-        if xz == '1':
+        xz = input("\033[1;31mymscan >>\033[32m")
+        if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
             main.main.ympoc(xz, target_url)
-        elif xz == '2':
+        elif xz == 'static':
+            target_url = input("\033[1;31m请输入扫描Url：\033[32m")
+            main.main.ympoc(xz, target_url)
+        elif xz == 'actions':
+            target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
+            main.main.ympoc(xz, target_url)
+        elif xz == 'statics':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
             main.main.ympoc(xz, target_url)
         elif xz =='exit':
