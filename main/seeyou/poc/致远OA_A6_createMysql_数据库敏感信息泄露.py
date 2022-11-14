@@ -24,8 +24,8 @@ def main(target_url):
     }
     try:
         requests.packages.urllib3.disable_warnings()
-        response = requests.get(vuln_url, headers=headers, verify=False, timeout=15)
-        response2 = requests.get(vuln_url2, headers=headers, verify=False, timeout=15)
+        response = requests.get(vuln_url, headers=headers, verify=False)
+        response2 = requests.get(vuln_url2, headers=headers, verify=False)
         if 'root' in response.text and response.status_code == 200:
             console.print(now_time() + " [SUCCESS]  致远OA A6 存在敏感信息泄露,地址为:{}".format(vuln_url), style='bold green')
         elif 'root' in response2.text and response2.status_code == 200:
