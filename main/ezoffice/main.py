@@ -4,7 +4,7 @@ import argparse
 import multiprocessing
 from pyfiglet import Figlet
 from rich.console import Console
-from poc import (万户OA_download_ftp, 万户OA_download_http, 万户OA_download_old, 万户OA_fileupload_controller,万户OA_office_任意文件上传,万户OA_office_任意文件上传)
+from poc import (万户OA_download_ftp, 万户OA_download_http, 万户OA_download_old, 万户OA_fileupload_controller,万户OA_office_任意文件上传,万户OA_document_sql,万户OA_smart_upload_文件上传,万户OA_download_servelet)
 
 console = Console()
 def now_time():
@@ -16,7 +16,7 @@ def main(target_url):
     if target_url[-1] != '/':
         target_url += '/'
     list = ['万户OA_download_ftp', '万户OA_download_http', '万户OA_download_old',
-            '万户OA_fileupload_controller', '万户OA_office_任意文件上传']
+            '万户OA_fileupload_controller', '万户OA_office_任意文件上传','万户OA_document_sql','万户OA_smart_upload_文件上传','万户OA_download_servelet']
     for i in list:
         eval(i + ".main(target_url)")
         time.sleep(0.2)

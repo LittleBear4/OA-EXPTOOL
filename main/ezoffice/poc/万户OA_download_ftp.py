@@ -23,7 +23,7 @@ def main(target_url):
     try:
         requests.packages.urllib3.disable_warnings()
         respones = requests.get(exp_url, headers=headers, verify=False)
-        if respones.status_code == 200:
+        if respones.status_code == 200 and 'defaultroot' in respones.text:
             console.print(now_time() + ' [SUCCESS]  万户OA download_ftp.jsp文件存在任意文件下载漏洞存在{}'.format(exp_url), style='bold green')
         else:
             console.print(now_time() + ' [WARNING]  万户OA download_ftp.jsp文件存在任意文件下载漏洞不存在', style='bold red ')

