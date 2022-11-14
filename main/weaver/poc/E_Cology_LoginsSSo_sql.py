@@ -21,11 +21,11 @@ def main(target_url):
     console.print(now_time() + " [INFO]     正在检测泛微 OA E-Cology_LoginSSO_SQL_CNVD-2021-33202", style='bold blue')
     try:
         requests.packages.urllib3.disable_warnings()
-        response = requests.get(url=exp_url, headers=headers, verify=False, timeout=15)
+        response = requests.get(url=exp_url, headers=headers, verify=False)
         if response.status_code== 200:
             console.print(now_time() + ' [SUCCESS]  存在泛微CNVD-2021-3320漏洞:{}'.format(exp_url), style='bold green')
         else:
-            console.print(now_time() + " [WARNING]  不存在泛微CNVD-2021-3320漏洞,建议手工测试:{}".format(exp_url), style='bold red')
+            console.print(now_time() + " [WARNING]  不存在泛微CNVD-2021-3320漏洞", style='bold red')
     except:
         console.print(now_time() + ' [WARNING]  请求失败，可能无法与目标建立连接或目标不存在', style='bold red')
         

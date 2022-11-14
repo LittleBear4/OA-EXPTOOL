@@ -22,10 +22,10 @@ def main(target_url):
     try:
         requests.packages.urllib3.disable_warnings()
         response = requests.get(url=exp_url, headers=headers, verify=False, timeout=15)
-        if response.status_code== 200:
+        if response.status_code== 200 and 'data' in response.text:
             console.print(now_time() + ' [SUCCESS]  存在泛微云桥getdatasql注入漏洞:{}'.format(exp_url), style='bold green')
         else:
-            console.print(now_time() + " [WARNING]  可能不存在泛微云桥getdatasql注入漏洞,建议手工测试:{}".format(exp_url), style='bold red')
+            console.print(now_time() + " [WARNING]  可能不存在泛微云桥getdatasql注入漏洞", style='bold red')
     except:
         console.print(now_time() + ' [WARNING]  请求失败，可能无法与目标建立连接或目标不存在', style='bold red')
         

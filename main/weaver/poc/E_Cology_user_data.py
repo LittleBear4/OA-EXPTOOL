@@ -23,7 +23,7 @@ def main(target_url):
         requests.packages.urllib3.disable_warnings()
         response = requests.get(url=exp_url, headers=headers, verify=False, timeout=15)
         if response.status_code== 200:
-            console.print(now_time() + ' [SUCCESS]  存在泛微OA E-Cology 敏感信息泄漏漏洞:{}'.format(exp_url), style='bold green')
+            console.print(now_time() + ' [SUCCESS]  可能存在泛微OA E-Cology 敏感信息泄漏漏洞:{}'.format(exp_url), style='bold green')
         else:
             console.print(now_time() + " [WARNING]  不存在泛微OA E-Cology 敏感信息泄漏洞", style='bold red')
     except:

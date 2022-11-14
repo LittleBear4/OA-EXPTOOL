@@ -22,7 +22,7 @@ def main(target_url):
     try:
         requests.packages.urllib3.disable_warnings()
         url = requests.get(vuln_url, headers=headers, verify=False)
-        if url.status_code== 200:
+        if url.status_code== 200 and '系统管理' in url.text:
             console.print(now_time() + ' [SUCCESS]  泛微未授权访问漏洞:{}'.format(vuln_url), style='bold green')
         else:
             console.print(now_time() + ' [WARNING]  泛微未授权访问漏洞漏洞不存在', style='bold red ')
