@@ -18,7 +18,7 @@ python运行python2的话会出现中文乱码从而报错
 
 ### 使用
 
-- 第一次使用脚本请运行pip3 install requirements.txt
+- 第一次使用脚本请运行pip3 install -r requirements.txt
 - 然后使用show查看命令合集
 - 主要针对的是OA产品的漏洞检测
 - 产生的攻击行为和后果与本人无关
