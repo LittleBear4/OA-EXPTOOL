@@ -40,7 +40,7 @@ def main(target_url):
             else:
                 console.print(now_time() + " [WARNING]  不存在通达OA_v11.5_任意用户登录漏洞", style='bold red')
         else:
-                console.print(now_time() + " [WARNING]  不存在通达OA_v11.5_任意用户登录漏洞", style='bold red')
+            console.print(now_time() + " [WARNING]  不存在通达OA_v11.5_任意用户登录漏洞", style='bold red')
     except: 
         console.print(now_time() + ' [WARNING]  未知错误，目标可能拒绝访问', style='bold red')
         
