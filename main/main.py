@@ -8,7 +8,7 @@ from rich.console import Console
 import telnetlib
 import argparse
 import threading
-import tee
+
 
 
 lock=threading.Lock()
