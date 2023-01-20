@@ -1,0 +1,21 @@
+import argparse
+import multiprocessing
+
+if __name__ == "__main__":
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('-u', '--url', dest='url', help='Target Url')
+        parser.add_argument('-f', '--file', dest='file', help='Target Url File', type=argparse.FileType('r'))
+        args = parser.parse_args()
+        if args.file:
+            pool = multiprocessing.Pool()
+            for url in args.file:
+                pool.apply_async(main, args=(url.strip('\n'),))
+            pool.close()
+            pool.join()
+        elif args.url:
+            main(args.url)
+        else:
+            print('缺少URL目标, 请使用 [-u URL] or [-f FILE]')
+    except KeyboardInterrupt:
+        console.print('\nCTRL+C 退出', style='reverse bold red')
