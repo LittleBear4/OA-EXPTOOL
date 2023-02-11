@@ -32,7 +32,7 @@ def whpoc(xz, target):
     select(xz,target,name)
     
 def llpoc(xz, target):
-    name=main.deal.whoa
+    name=main.deal.lloa
     #console.print(Figlet(font='slant').renderText('Landray OA-Exp'), style='bold blue')
     select(xz,target,name)
         
