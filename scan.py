@@ -276,10 +276,10 @@ class hacktools(cmd.Cmd):
         xz = input("\033[1;31mhfscan >>\033[32m")
         if xz == 'action':
             target_url = input("\033[1;31m请输入扫描Url：\033[32m")
-            main.main.hfpoc(xz, target_url)
+            main.mode.hfpoc(xz, target_url)
         elif xz == 'actions':
             target_url = input("\033[1;31m请输入扫描文件地址：\033[32m")
-            main.main.hfpoc(xz, target_url)
+            main.mode.hfpoc(xz, target_url)
         elif xz =='exit':
             return
         else:
