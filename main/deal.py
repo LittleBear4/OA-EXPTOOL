@@ -11,7 +11,7 @@ from main.YMoa import 一米OA_beifenAction_任意文件读取
 
 from main.yonyou import nc_beanshell_rce,nc_upload_rce,nc_erp_sql,nc_u8_test_sql,nc_erp_directory
 
-from main.yonyou import 用友畅捷通T_updata_任意文件上传,nc_U8_getSessionList,fe_oa_directiry, nc_readfile_everything,nc_xbr_rce,用友_U8_f5_sql,用友GRP_u8_upload_data,yongyou_KSOA_imageupload
+from main.yonyou import 用友畅捷通T_updata_任意文件上传,nc_U8_getSessionList,fe_oa_directiry, nc_xbr_rce,用友_U8_f5_sql,用友GRP_u8_upload_data,yongyou_KSOA_imageupload
 
 from main.seeyou import 致远OA_A6_createMysql_数据库敏感信息泄露, 致远OA_A6_DownExcelBeanServlet_用户敏感信息下载, 致远OA_A6_initDataAssess_用户敏感信息泄露, \
     致远OA_A6_setextno_SQL注入Getshell, 致远OA_A6_test_SQL注入Getshell, 致远OA_A8_htmlofficeservlet_RCE, \
@@ -20,13 +20,13 @@ from main.seeyou import 致远OA_A6_createMysql_数据库敏感信息泄露, 致
 
 from main.Anywhere import (通达OA_v11_5_swfupload_sql, 通达OA_v11_5_任意用户登录, 通达OA_v11_6_insert_sql, 通达OA_v11_6_report_bi_sql, 通达OA_v11_6_任意文件删除_RCE, 通达OA_v11_7_后台sql注入,通达OA_v11_7_在线用户登录, 通达OA_v11_8_api_任意文件上传, 通达OA_v11_8_getway_远程文件包含, 通达OA_v2014_get_contactlist, 通达OA_v2017_action_upload,通达OA_v2017_任意用户登录,通达OA_v11_8_logincheck,通达OA_v11_8_后台包含xss,通达OA_v11_9_getdata)
 
-from main.ezoffice import (万户OA_download_ftp, 万户OA_download_http, 万户OA_download_old, 万户OA_fileupload_controller,万户OA_office_任意文件上传,万户OA_document_sql,万户OA_smart_upload_文件上传,万户OA_download_servelet)
+from main.ezoffice import (万户OA_download_ftp, 万户OA_download_http, 万户OA_download_old, 万户OA_fileupload_controller,万户OA_office_任意文件上传,万户OA_document_sql,万户OA_smart_upload_文件上传,万户OA_download_servelet,万户OA_xfire_xxe,万户OA_UploadServlet)
 
 from main.Landray import (蓝凌OA_任意文件写入, 蓝凌OA_treeXml_远程命令执行, 蓝凌OA_datajson_命令执行, 蓝凌OA_custom_任意文件读取)
 
 from main.weaver import Bsh_RCE,E_Bridge_Arbitrary_File_Read,E_Cology_Database_Leak,E_Cology_V8_Sql,E_Cology_WorkflowServiceXml_RCE
 from main.weaver import Weaver_Common_Ctrl_Upload,WorkflowCenterTreeData_Sql,Weaver_V9_uploadOperation,Weaver_oa_infiledonload
-from main.weaver import Weaver_e_office_userlogin,E_office_upload,Weaver_e_officeserver_readfile,E_office_group_xml_sql,E_Cology_user_data,E_Cology_LoginsSSo_sql,E_Cology_getData_sql,泛微OA_hrmcareerApply_sql,泛微OA_jquery_filetree,泛微OA_Verify_QuickLogin,泛微OA_mysql_config数据库信息泄漏,泛微OA_signnature_任意文件访问,泛微OA_uploader_OPerate,泛微OA_V10_前台sql,泛微OA_doexcel,泛微OA_ktree_upload,泛微OA_v10_upload,泛微OA_eoffice8_upload,泛微OA_moblie_v6_sql
+from main.weaver import 泛微2023sql注入,Weaver_e_office_userlogin,E_office_upload,Weaver_e_officeserver_readfile,E_office_group_xml_sql,E_Cology_user_data,E_Cology_LoginsSSo_sql,E_Cology_getData_sql,泛微OA_hrmcareerApply_sql,泛微OA_jquery_filetree,泛微OA_Verify_QuickLogin,泛微OA_mysql_config数据库信息泄漏,泛微OA_signnature_任意文件访问,泛微OA_uploader_OPerate,泛微OA_V10_前台sql,泛微OA_doexcel,泛微OA_ktree_upload,泛微OA_v10_upload,泛微OA_eoffice8_upload,泛微OA_moblie_v6_sql
 
 from main.FineReport import (帆软_v8_get_json_任意文件读取, 帆软_v9_design_文件覆盖上传,帆软_2012_信息泄露)
 
@@ -88,7 +88,7 @@ def yyoa(target_url):
     Deal(target_url)
     nc_erp_sql.POC_1(target_url)
     list = ['nc_beanshell_rce','nc_upload_rce','nc_u8_test_sql','nc_erp_directory',
-            '用友畅捷通T_updata_任意文件上传','nc_U8_getSessionList','fe_oa_directiry','nc_readfile_everything','nc_xbr_rce','用友_U8_f5_sql','用友GRP_u8_upload_data','yongyou_KSOA_imageupload']
+            '用友畅捷通T_updata_任意文件上传','nc_U8_getSessionList','fe_oa_directiry','nc_xbr_rce','用友_U8_f5_sql','用友GRP_u8_upload_data','yongyou_KSOA_imageupload']
     for i in list:
         eval(i + ".main(target_url)")
         time.sleep(0.2)
@@ -120,7 +120,7 @@ def tdoa(target_url):
     
 def whoa(target_url):
     Deal(target_url)     
-    list = ['万户OA_download_ftp', '万户OA_download_http', '万户OA_download_old',
+    list = ['万户OA_xfire_xxe','万户OA_UploadServlet','万户OA_download_ftp', '万户OA_download_http', '万户OA_download_old',
             '万户OA_fileupload_controller', '万户OA_office_任意文件上传','万户OA_document_sql','万户OA_smart_upload_文件上传','万户OA_download_servelet']
     for i in list:
         eval(i + ".main(target_url)")
@@ -138,7 +138,7 @@ def lloa(target_url):
 def fwoa(target_url):
     Deal(target_url)
     list1 = ['Bsh_RCE','E_Bridge_Arbitrary_File_Read']
-    list2 = ['E_Cology_Database_Leak','E_Cology_V8_Sql','E_Cology_WorkflowServiceXml_RCE',
+    list2 = ['泛微2023sql注入','E_Cology_Database_Leak','E_Cology_V8_Sql','E_Cology_WorkflowServiceXml_RCE',
              'Weaver_Common_Ctrl_Upload','WorkflowCenterTreeData_Sql','Weaver_V9_uploadOperation',
              'Weaver_oa_infiledonload','Weaver_e_office_userlogin','E_office_upload',
              'Weaver_e_officeserver_readfile','E_office_group_xml_sql','E_Cology_user_data',
