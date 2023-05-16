@@ -21,7 +21,7 @@ def main(target_url):
     }
     console.print(now_time() + " [INFO]     正在检测万户OA DocumentEdit.jsp SQL注入漏洞", style='bold blue')
     try:
-        res = requests.get(url=target_url, headers=headers, verify=False, timeout=10)
+        res = requests.get(url=target_url, headers=headers,allow_redirects=False, verify=False, timeout=10)
         if res.status_code == 200:
             console.print(now_time() + " [SUCCESS]     存在万户OA DocumentEdit.jsp SQL注入漏洞{}".format(target_url), style='bold green')
         else:
