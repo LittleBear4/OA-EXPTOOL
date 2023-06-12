@@ -329,20 +329,25 @@ class Request:
                 elif data['type']=='status':
                     #print('5')
                     #print(data['status'])
-                    if response.status_code in data['status']:
-                        verifier.append(True)
-                    else:
-                        verifier.append(False)
-                
-                #有待验证
-                else:
-                    for value in data[data['type']]:
-                        #print('6')
-                        #print(value)
-                        if value in response.text:
+                   
+                    for value in data['status']:
+                        print(value)
+                        if response.status_code in data['status']:
                             verifier.append(True)
                         else:
                             verifier.append(False)
+                
+                #有待验证
+                #有待验证
+                else:
+                    for i in data[data['type']]:
+                        print('6')
+                        print(value)
+                        for value in i
+                            if value in response.text:
+                                verifier.append(True)
+                            else:
+                                verifier.append(False)
         
 
         if self.match_condition[num]=="and":
