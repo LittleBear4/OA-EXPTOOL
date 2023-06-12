@@ -331,7 +331,7 @@ class Request:
                     #print(data['status'])
                    
                     for value in data['status']:
-                        print(value)
+                        #print(value)
                         if response.status_code in data['status']:
                             verifier.append(True)
                         else:
@@ -341,8 +341,8 @@ class Request:
                 #有待验证
                 else:
                     for i in data[data['type']]:
-                        print('6')
-                        print(value)
+                        #print('6')
+                        #print(value)
                         for value in i:
                             if value in response.text:
                                 verifier.append(True)
