@@ -343,7 +343,7 @@ class Request:
                     for i in data[data['type']]:
                         print('6')
                         print(value)
-                        for value in i
+                        for value in i:
                             if value in response.text:
                                 verifier.append(True)
                             else:
