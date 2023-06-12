@@ -1,9 +1,0 @@
-beautifulsoup4
-cmd2
-config_file
-pyDes
-requests
-rich
-SocksiPy_branch
-threadpool
-urllib3
