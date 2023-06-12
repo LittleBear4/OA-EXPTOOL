@@ -1,0 +1,31 @@
+id: 万户iSignature sql
+
+info:
+  severity: critical
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/defaultroot/public/iSignatureHTML.jsp/DocumentEdit.jsp?DocumentID=1"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "iSignature"
+
+      - type: word
+        words:
+          - "text/html"
+        part: header
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04

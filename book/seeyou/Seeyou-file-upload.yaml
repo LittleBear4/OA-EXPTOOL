@@ -1,0 +1,37 @@
+id: 致远未授权文件上传漏洞
+time: '2021-03-25'
+
+info:
+  name: Zhiyuan OA Arbitrary File Upload Vulnerability
+  author: gy741
+  severity: critical
+  description: OA中的漏洞允许远程未经身份验证,如果存在可深度利用进行远程执行已经fastjson
+  reference:
+    - https://mp.weixin.qq.com/s/nagE6htEWNMNAvPBVGTJxQ
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/seeyon/thirdpartyController.do.css/..;/ajax.do"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "java.lang.NullPointerException:null"
+
+      - type: word
+        words:
+          - "text/html"
+        part: header
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04

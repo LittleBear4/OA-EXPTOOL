@@ -1,0 +1,35 @@
+id: 致远A8 html 任意文件上传漏洞
+time: "2022/02/04"
+
+info:
+  severity: critical
+  description: 致远OA A8 htmlofficeservlet 任意文件上传漏洞
+  reference:
+    - https://www.hackjie.com/docs/3298.html
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/seeyon/htmlofficeservlet"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "DBSTEP V3.0"
+
+      - type: word
+        words:
+          - "text/html"
+        part: header
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04

