@@ -46,10 +46,7 @@ http:
         words:
           - "dcupdateService"
 
-      - type: word
-        words:
-          - "text/html"
-        part: header
+
 
       - type: status
         status:
