@@ -74,7 +74,7 @@ class Request:
                             RequestHeader[key] = value
                         count=count+1 
                     target=url+path
-                    print(target)
+                    #print(target)
                     #print(RequestHeader)
                     #print('-------------------------------------')
                     try:
@@ -168,7 +168,7 @@ class Request:
                                 RequestHeader[key] = value
                             count=count+1 
                         target=url+path
-                        print(target)
+                        #print(target)
                         #print(RequestHeader)
                         #print('-------------------------------------')
                         try:
