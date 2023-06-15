@@ -74,7 +74,7 @@ class Request:
                             RequestHeader[key] = value
                         count=count+1 
                     target=url+path
-                    #print(target)
+                    print(target)
                     #print(RequestHeader)
                     #print('-------------------------------------')
                     try:
@@ -168,7 +168,7 @@ class Request:
                                 RequestHeader[key] = value
                             count=count+1 
                         target=url+path
-                        #print(target)
+                        print(target)
                         #print(RequestHeader)
                         #print('-------------------------------------')
                         try:
@@ -260,9 +260,21 @@ class Request:
                         #如果part是Gheader或Rheader，就在response.headers中查找
                         if part=='Gheader' or part=='Rheader':
                             #print('header')
-                            result = str(pattern.findall(str(response.headers))).strip('[]')
+                            header_str = str(response.headers)
+                            header_list = header_str.split('\n')
+                            header_dict = {}
+                            for header in header_list:
+                                if ':' in header:
+                                    key, value = header.split(':', 1)
+                                    header_dict[key.strip()] = value.strip()
+                            result = pattern.findall(str(header_dict))
+                            result = result[0] if result else ''
                         else:
-                            result = str(pattern.findall(response.text)).strip('[]')
+                            result = pattern.findall(response.text)
+                            result = result[0] if result else ''
+
+
+
                         #如果part是列表，就遍历列表中的每一个元素，将其中的((ext[i])['name'])[j]替换为result
                         #if isinstance((getattr(self,part))[num], list):
                         old_list = getattr(self,part)
