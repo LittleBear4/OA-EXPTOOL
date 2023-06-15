@@ -17,8 +17,7 @@ def exception(flag):
 
 def result(flag,name):
     if flag=='1':
-        print(
-        '''          \033[32m[*]\033[0m 存在:{} 漏洞'''
+        print('''    \033[32m[*]\033[0m 存在:{} 漏洞'''
         .format(name))
 
     
