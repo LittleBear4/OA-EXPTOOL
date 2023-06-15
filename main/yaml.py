@@ -92,7 +92,10 @@ class Yaml_deal:
 
                     self.method.append(((yaml_data['http'])[0])['method'])  #请求方式GET/POST
                     self.url.append(((yaml_data['http'])[0])['path'])       #漏洞的url
-                    self.match_condition.append(((yaml_data['http'])[0])['matchers-condition']) #匹配条件
+                    if 'matchers-condition' in (yaml_data['http'])[0]:
+                        self.match_condition.append(((yaml_data['http'])[0])['matchers-condition']) #匹配条件
+                    else:
+                        self.match_condition.append("and") #占位符
                     #匹配内容
                     self.match.append((((yaml_data['http'])[0])['matchers']))
             except Exception as e:
