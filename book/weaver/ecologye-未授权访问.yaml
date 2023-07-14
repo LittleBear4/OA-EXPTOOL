@@ -1,0 +1,34 @@
+id: 泛微 E-office 存在未授权访问
+
+info:
+  name: 泛微 E-Mobile 前台存在ognl表达式注入
+  severity: medium
+  description:  泛微OA E-mobile v5.0 ognl注入
+  metadata:
+    max-request: 1
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  tags: fanwei,ecology,exposure,config
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/UserSelect/"
+    Rheader:
+      - Content-Type:application/x-www-form-urlencoded
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "/UserSelect/top.php"
+          - "/UserSelect/main.php"
+          - "选择人员"
+        condition: and
+
+
+      - type: status
+        status:
+          - 200

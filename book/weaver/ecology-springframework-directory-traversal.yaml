@@ -19,6 +19,7 @@ http:
       - GET
     path:
       - "{{BaseURL}}/weaver/org.springframework.web.servlet.ResourceServlet?resource=/WEB-INF/web.xml"
+    
     matchers-condition: and
     matchers:
       - type: status

