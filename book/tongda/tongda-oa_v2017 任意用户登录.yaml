@@ -1,0 +1,27 @@
+id: 通达OA 2017 任意用户登录
+time:  "2022-10-01"
+info:
+  name: Tongda User Session Disclosure
+  author: ritikchaddha
+  severity: medium
+  reference:
+    - https://rank.chinaz.comwww.dandelioncloud.cn/article/details/1614614051328065537
+  tags: tongda,disclosure
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/ispirit/login_code.php"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - 'code_uid'
+        condition: and
+
+    

