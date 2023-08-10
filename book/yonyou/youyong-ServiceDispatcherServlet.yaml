@@ -1,0 +1,33 @@
+id: 用友ServiceDispatcherServlet反序列化
+
+info:
+  severity: critical
+  description: 用友反序列化接口，后续可利用反序列化
+  reference:
+    - https://github.com/lal0ne/vulnerability/blob/b48364d066b0b8316b8efd79e289addb3fd38359/YonyouNC/ncDecode/README.md?plain=1#L132
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/ServiceDispatcherServlet"
+
+    matchers-condition: and
+    matchers:
+      - type: words
+        part: header
+        words:
+          -  Content-Type:application/x-java-serialized-object
+
+
+
+      - type: status
+        status:
+          - 200
+          - 302
+
+# Enhanced by mp on 2022/02/04

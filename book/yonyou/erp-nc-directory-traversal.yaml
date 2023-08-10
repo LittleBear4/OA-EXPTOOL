@@ -26,10 +26,7 @@ http:
     matchers:
       - type: word
         words:
-          - "Client"
-          - "ncwslogin.jsp"
-          - "admin.jsp"
-        part: body
+          - "menu.jsp"
         condition: and
 
       - type: status

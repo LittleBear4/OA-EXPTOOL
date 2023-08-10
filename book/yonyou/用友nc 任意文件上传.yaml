@@ -1,0 +1,32 @@
+id: 用友nc 任意文件上传
+
+info:
+  severity: critical
+  description: 用友nc 任意文件上传,
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+
+    path:
+      - "{{BaseURL}}/aim/equipmap/accept.jsp"
+
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "exception"
+          - "NegativeArraySizeException"
+          - "java"
+
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04

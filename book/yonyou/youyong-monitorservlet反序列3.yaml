@@ -1,0 +1,32 @@
+id: MonitorServlet 接口用友反序列化-3
+
+info:
+  severity: critical
+  description: 用友反序列化接口，后续可利用反序列化
+  reference:
+    - https://github.com/0x727/DropLabTools/blob/e1534f5000b1213e54b2762c1aa357eb04f29bf1/src/main/java/com/droplab/Controller/Yongyou/Service/YongyouCheckeURL.java#L87
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/service/mxservlet"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "BACKGROUND-COLOR"
+          - "页面出错啦！"
+
+
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04

