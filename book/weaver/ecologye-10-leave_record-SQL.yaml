@@ -5,7 +5,7 @@ info:
   severity: medium
   description:  泛微 e-cology-v10 run_id参数过滤不严，攻击者可获取数据库信息和服务权限
   metadata:
-    max-request: 1
+    max-request: http://mp.weixin.qq.com/s?__biz=MzIwMDcyNzM0Mw==&mid=2247484992&idx=1&sn=461895617739b662d412648034b36ef7
     verified: true
     fofa-query: app="泛微-EOffice"
   tags: fanwei,ecology,exposure,config

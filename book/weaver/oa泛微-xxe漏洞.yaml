@@ -4,6 +4,7 @@ info:
   name: oa泛微0day任意文件读取.py
   severity: medium
   description: 泛微OA e-cology XXE
+  reference: https://mp.weixin.qq.com/s/YT64vy3tbAoxj6CQ7XWgUA
   metadata:
     max-request: 1
     verified: true

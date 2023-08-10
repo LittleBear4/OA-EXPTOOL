@@ -6,7 +6,7 @@ info:
   name: 泛微E-Office v9.5文件上传
   severity: high
   description: 泛微-EOffice,自定义函数doc2txt导致的任意文件上传
-  reference: https://github.com/sunyixuan1228/cve/blob/main/weaver.md
+  reference: https://mp.weixin.qq.com/s/bAADy7Ek1umIAVygBdKrcA
   metadata:
     max-request: 2
     verified: true

