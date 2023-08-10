@@ -42,6 +42,8 @@ class Yaml_deal:
     def Get_folder_filename(self):
         filenames = []
         for filename in os.listdir(self.path):
+            if filename.startswith("._"):
+                continue
             filenames.append(filename)        
         return filenames
         
