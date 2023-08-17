@@ -1,0 +1,30 @@
+id: 泛微 ShowDocsImageServlet 存在SQL注入漏洞
+
+info:
+  name: 泛微 ShowDocsImageServlet 存在SQL注入漏洞
+  severity: medium
+  description:  泛微SQL注入漏洞，注入类型，延迟注入
+  metadata:
+    max-request: 1
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  tags: fanwei,ecology,exposure,config
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/weaver/weaver.docs.docs.ShowDocsImageServlet?docId=1"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: header
+        words:
+          - "image/jpeg; charset=UTF-8"
+        condition: and
+
+
+      - type: status
+        status:
+          - 200

@@ -1,0 +1,45 @@
+id: 泛微ifNewsCheckOutByCurrentUser.dwr
+time: "2023-08-11"
+
+info:
+  name: 泛微E-Cology FileDownloadForOutDoc
+  author: pikpikcu
+  severity: critical
+  reference: https://jyjszx.ayit.edu.cn/info/1061/8742.htm
+  description: 泛微E-Cology sql注入 暂无版本信息
+  tags: tongda,lfi
+
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/dwr/call/plaincall/CptDwrUtil.ifNewsCheckOutByCurrentUser.dwr"
+    
+    Rheader:
+      - Accept-Encoding:gzip & Content-Type:text/plain
+    body: 
+      - |
+        callCount=1
+        page=
+        httpSessionId=
+        scriptSessionId=
+        c0-scriptName=DocDwrUtil
+        c0-methodName=ifNewsCheckOutByCurrentUser
+        c0-id=0
+        c0-param0=string:1
+        c0-param1=string:1
+        batchId=0
+    
+
+    matchers-condition: and
+    matchers:
+      
+      - type: word
+        part: body
+        words:
+          - "remoteHandleCallback"
+        condition: and
+      
+      - type: status
+        status:
+          - 200

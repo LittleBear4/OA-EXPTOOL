@@ -7,7 +7,7 @@ info:
   metadata:
     max-request: 1
     verified: true
-    fofa-query: app="泛微-EOffice"
+    fofa-query: app="泛微-协同办公OA"
   tags: fanwei,ecology,exposure,config
 
 http:

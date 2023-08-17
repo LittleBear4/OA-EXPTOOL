@@ -1,14 +1,13 @@
 id: oa任意用户登录.py
 
 info:
-  name: oa泛微0day任意文件读取.py
+  name: 泛微OA E-Cology
   severity: medium
-  description: 泛微 e-cology 存在任意管理户登陆漏洞,攻击者可利用该漏洞获取系统敏感信息等
+  description: 泛微OA E-Cology VerifyQuickLogin.jsp文件中存在任意管理员登录漏洞，攻击着通过发送特殊的请求包可以获取管理员Session
   metadata:
     max-request: 1
     verified: true
-    fofa-query: app="泛微-EOffice"
-  tags: fanwei,ecology,exposure,config
+    fofa-query: app="泛微-协同办公OA"
 
 http:
   - method: 
