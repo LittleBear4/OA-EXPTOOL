@@ -304,7 +304,7 @@ class Request:
                         for value in data['words']:
                             #print('2')
                             #print(value)
-                            if value in response.headers:
+                            if any(value in header_value for header_value in response.headers.values()):
                                 verifier.append(True)
                             else:
                                 verifier.append(False)
