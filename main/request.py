@@ -97,6 +97,8 @@ class Request:
                 if med == 'POST':
                     #利用计数器来赋予body值
                     body = (self.body[num])[counter]
+                    lines = body.split('\n')
+                    body='\r\n'.join(lines)
                     #print(body)
                     #获取并更新请求头
                     RequestHeader=self.RequestHeader()
@@ -190,6 +192,8 @@ class Request:
                     if med == 'POST':
                         #利用计数器来赋予body值
                         body = (self.body[num])[counter]
+                        lines = body.split('\n')
+                        body='\r\n'.join(lines)
                         #print(body)
                         #获取并更新请求头
                         RequestHeader=self.RequestHeader()
