@@ -10,7 +10,7 @@ info:
   metadata:
     max-request: 2
     verified: true
-    fofa-query: body=“window.location.replace(“login.jsp?up=1”)” || body=“GRP-U8”
+    fofa-query: title="用友GRP-U8行政事业内控管理软件"
   
 http:
   - method: 
@@ -25,12 +25,13 @@ http:
         
     body: 
       - |
-        --59229605f98b8cf290a7b8908b34616b
-        Content-Disposition: form-data; name="file"; filename="1.txt"
-        Content-Type: image/png
+        '''--59229605f98b8cf290a7b8908b34616b
+        Content-Disposition:form-data; name="file"; filename="1.txt"
+        Content-Type:image/png
 
+        
         hiword!!!
-        --59229605f98b8cf290a7b8908b34616b-
+        --59229605f98b8cf290a7b8908b34616b-'''
         
 
       
