@@ -21,7 +21,7 @@ http:
         fileid=2+WAITFOR+DELAY+'0:0:5'&isFromOutImg=1
     
 
-    matchers-condition: and
+    matchers-condition: or
     matchers:
       
       - type: word
