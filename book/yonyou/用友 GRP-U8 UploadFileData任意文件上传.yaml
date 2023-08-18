@@ -3,14 +3,14 @@ time: '2023-02-21'
 
 
 info:
-  name: 用友GRP-U8 软件 U8AppProxy 任意文件上传漏洞
+  name: 用友 GRP-U8 UploadFileDat 任意文件上传漏洞
   severity: high
   description: 用友 GRP-U8 UploadFileData接口存在任意文件上传漏洞，攻击者通过漏洞可以获取服务器权限。
   reference: https://blog.csdn.net/holyxp/article/details/131936338
   metadata:
     max-request: 2
     verified: true
-    fofa-query: body=“window.location.replace(“login.jsp?up=1”)” || body=“GRP-U8”
+    hunter: body=“window.location.replace(“login.jsp?up=1”)” || body=“GRP-U8”
   
 http:
   - method: 
@@ -39,7 +39,7 @@ http:
       - type: word
         part: body
         words:
-          - "0xold6!!!"
+          - "0xold6"
 
       - type: status
         status:
