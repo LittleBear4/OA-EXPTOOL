@@ -27,11 +27,6 @@ http:
     matchers-condition: and
     matchers:
       
-      - type: word
-        part: header
-        words:
-          - "manage.php?start"
-        condition: and
       
       - type: status
         status:
