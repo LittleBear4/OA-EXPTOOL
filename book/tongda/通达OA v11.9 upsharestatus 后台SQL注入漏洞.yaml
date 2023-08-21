@@ -1,0 +1,36 @@
+id: 通达OA v11.9 upsharestatus 后台SQL注入漏洞
+time: "2023-05-12"
+info:
+  author: ritikchaddha
+  severity: medium
+  description: 通达OA v11.9 及以下版本中由于某些参数过滤不完善导致后台存在SQL注入漏洞
+  reference:
+    - https://mp.weixin.qq.com/s/z53MByKJ0o5NWL5jdqi24g
+  tags: tongda,disclosure
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/general/appbuilder/web/portal/workbench/upsharestatus"
+      
+    Rheader:
+      - Cookie:__root_domain_v=.tongda2000.com; SID_12=5ea03399; USER_NAME_COOKIE=chenqiang; Hm_lvt_7cbefde9059536a2b96aaafc134d625c=1617014067,1617196083; _qddaz=QD.677915359373668; PHPSESSID=nso4iqhvp2qi464eoavk2fn0c0; OA_USER_ID=chenqiang; SID_15=ded66d80; LAST_OPERATION_TIME=1617242241 & Sec-Fetch-Dest:document & Sec-Fetch-User:?1 & Sec-Fetch-Mode:navigate & Sec-Fetch-Site:same-origin & Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 &  Content-Type:application/x-www-form-urlencoded & Upgrade-Insecure-Requests:1 & sec-ch-ua-mobile:?0
+      
+    body:
+      - |
+        uid=15&status=1&id=1
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "status"
+          - "msg"
+
+      - type: status
+        status:
+          - 200

