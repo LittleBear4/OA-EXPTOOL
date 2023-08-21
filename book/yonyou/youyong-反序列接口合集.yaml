@@ -40,13 +40,8 @@ http:
       - "{{BaseURL}}/service/~cc/nc.bs.logging.config.LoggingConfigServlet"
       - "{{BaseURL}}/servlet/~ic/ShowAlertFileServlet"
 
-    matchers-condition: and
+    matchers-condition: or
     matchers:
-      - type: word
-        words:
-          - "dcupdateService"
-
-
 
       - type: status
         status:
