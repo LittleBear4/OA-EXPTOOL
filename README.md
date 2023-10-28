@@ -29,6 +29,7 @@
 - 第一次使用脚本请运行pip3 install -r requirements.txt
 - 面板是所有参数了致远就输入 zyscan tab键有补全命令的功能
 - 进入后help就可以查看，操作和msf一样
+- 批量使用先进行set type file 改变对象类型 然后set value 文件名
 
 ### 使用实例
 
