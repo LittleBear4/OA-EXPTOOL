@@ -25,7 +25,3 @@ def index():
 
 
         
-def loading():
-    for i in range(0,105):
-        time.sleep(0.005)
-        print('-',end = "", file=sys.stdout, flush=True)

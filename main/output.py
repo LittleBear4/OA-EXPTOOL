@@ -15,10 +15,12 @@ def exception(flag):
     elif flag=="7":
         print("    \033[33m[*]\033[0m 请求发生错误，可能连接超时")
 
-def result(flag,name):
+def result(flag,url,name,exp):
     if flag=='1':
         print('''    \033[32m[*]\033[0m 存在:{} 漏洞'''
         .format(name))
+        with open('report.txt', 'a+',encoding='utf-8') as f:
+            print("[+] ",url," : ",name," : ",exp,file = f)
 
     
     elif flag=='2':

@@ -10,8 +10,13 @@ class MyCmd(cmd.Cmd):
     prompt = '> '
     def do_set(self,line):
         name = line.split()
-        path=str(name).replace('[\'','').replace('\']','')+self.prompt
-        Entrance(path).cmdloop()
+        try:
+            name = line.split()
+            path=str(name).replace('[\'','').replace('\']','')+self.prompt
+            Entrance(path).cmdloop()
+        except Exception as e:
+            print("\033[31m[*]\033[0m {}".format(e))
+         #print("\033[31m[*]\033[0m this is 错误")
 
     def do_zyscan(self, line):
         path="zyscan "+self.prompt
@@ -53,7 +58,7 @@ class Entrance(cmd.Cmd):
         self.value = None
         self.type = "url"
         self.poc = "None"
-        self.proxy = "Null"
+        self.proxy = "None"
         self.num = []
         self.Yaml=yaml.Yaml_deal(self.prompt)
         self.Yaml.Open_Yaml()
@@ -94,7 +99,11 @@ class Entrance(cmd.Cmd):
         print('''\n\rPOC LIST''')
         print('''\r========''')
         headers= ["#","Name", "time", "description","Reference"]
+        #print(self.Yaml.filenames)
+        #print(self.Yaml.time)
+        #print(self.Yaml.id)
         for i in range(len(self.Yaml.filenames)):
+            #print(i)
             table.append([i,pocid[i],poctime[i],pocexplain[i]])
 
         #print(tabulate(table, headers=headers, tablefmt="rounded_grid", maxcolwidths=[2, 20, 20, 70]))
@@ -155,7 +164,7 @@ class Entrance(cmd.Cmd):
             output.exception(flag)
             return
         result=deal.POC_select(self.poc,self.Yaml.id)
-        req=request.Request(target,self.Yaml.method,self.Yaml.url,self.Yaml.match_condition,self.Yaml.match,self.proxy,self.Yaml.body,self.Yaml.Rheader,self.Yaml.Gheader,self.Yaml.id,self.Yaml.extractors)
+        req=request.Request(target,self.Yaml.method,self.Yaml.url,self.Yaml.match_condition,self.Yaml.match,self.proxy,self.Yaml.body,self.Yaml.Rheader,self.Yaml.Gheader,self.Yaml.id,self.Yaml.extractors,self.Yaml.exp,self.Yaml.delay_time)
         #print(target,result,self.Yaml.method,self.Yaml.url,self.Yaml.match_condition,self.Yaml.match,self.proxy,self.num)
         if result:
             req.all_poc(self.Yaml.filenames)

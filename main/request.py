@@ -2,7 +2,9 @@
 import requests
 import random
 import re
-
+import os
+import sys
+import time
 from main import output
 #from main import extractors
 
@@ -10,19 +12,39 @@ from main import output
 
 
 class Request:
-    def __init__(self,target,method,url,match_condition,match,proxy,body,Rheader,Gheader,name,Controls):
+    def __init__(self,target,method,url,match_condition,match,proxy,body,Rheader,Gheader,name,Controls,exp,time):
         self.target=target                      #类型列表 url
         self.method=method                      #列表   请求方式
         self.path=url                           #列表   POC路径
         self.match_condition=match_condition    #列表   匹配条件
         self.match=match                        #列表   匹配的内容初始化后待处理
-        self.proxy=proxy                        #列表   代理
         self.body=body
         self.Rheader=Rheader                    #POST请求头
         self.Gheader=Gheader                    #GET 请求头       
         self.id=name
         self.ext=Controls
-        
+        self.exp=exp                            #漏洞的参考链接
+        self.time=time                          #计时器
+        #print(self.time)
+
+        if proxy.lower() == "none":
+            if "http_proxy" in os.environ:
+                del os.environ["http_proxy"]
+            if "https_proxy" in os.environ:
+                del os.environ["https_proxy"]
+        else:
+            try:
+                parts = proxy.split(":")
+                if len(parts) != 2:
+                    raise ValueError("代理格式错误，请使用HTTP代理，格式为IP:端口")
+                else:
+                    ip, port = proxy.split(":")
+                proxy = f"http://{ip}:{port}"
+                os.environ["http_proxy"] = proxy
+                os.environ["https_proxy"] = proxy
+            except Exception as e:
+                print("\033[31m[*]\033[0m {}".format(e))
+                sys.exit()
 
 
 
@@ -78,7 +100,13 @@ class Request:
                     #print(RequestHeader)
                     #print('-------------------------------------')
                     try:
+                        if self.time[num]!="None":
+                            #print(self.time)
+                            start_time = time.time()
                         response = requests.get(target, headers=RequestHeader, verify=False, timeout=5.1, allow_redirects=False)
+                        if self.time[num]!=None:
+                            end_time =time.time()
+                        
                         result=self.extractors(ext,response,req_conunt,num)
                     except:
                         flag='7'
@@ -119,6 +147,9 @@ class Request:
                             
                     #print('-------------------------------------')
                     try:       
+                        if self.time[num]!="None":
+                            print(self.time)
+                            start_time = time.time()
                         response = requests.post(target, headers=RequestHeader,  data=body,verify=False, timeout=5.1, allow_redirects=False)
                         self.extractors(ext,response,req_conunt,num)
                     except:
@@ -128,10 +159,10 @@ class Request:
                 
             #请求结束后进行验证
             if response is not None:
-                self.verify_poc(response,num)
+                self.verify_poc(response,num,url)
             else:
                 flag='2'
-                output.result(flag,self.id[num])
+                output.result(flag,target,self.id[num],self.exp[num])
 
 
 
@@ -174,6 +205,10 @@ class Request:
                         #print(RequestHeader)
                         #print('-------------------------------------')
                         try:
+                            #print(num)
+                            if self.time[num]!="None":
+                                #print(self.time)
+                                start_time = time.time()
                             response = requests.get(target, headers=RequestHeader, verify=False, timeout=5.1, allow_redirects=False)
                             result=self.extractors(ext,response,req_conunt,num)
                         except:
@@ -214,7 +249,11 @@ class Request:
                         #print(RequestHeader)     
                                 
                         #print('-------------------------------------')
-                        try:       
+                        try:
+ 
+                            if self.time[num]!="None" and  ((self.time[num])[1])['number'] == number:
+                                print("1")
+                                start_time = time.time()        
                             response = requests.post(target, headers=RequestHeader,  data=body,verify=False, timeout=5.1, allow_redirects=False)
                             self.extractors(ext,response,req_conunt,num)
                         except:
@@ -224,10 +263,10 @@ class Request:
                 
                 #请求结束后进行验证
                 if response is not None:
-                    self.verify_poc(response,num)
+                    self.verify_poc(response,num,url)
                 else:
                     flag='2'
-                    output.result(flag,self.id[num])
+                    output.result(flag,target,self.id[num],self.exp[num])
 
 
 
@@ -293,7 +332,7 @@ class Request:
 
 
 
-    def verify_poc(self,response,num):
+    def verify_poc(self,response,num,target):
         verifier=[]                        #定义验证器 
         condition=self.match_condition
         match=self.match
@@ -369,17 +408,17 @@ class Request:
         if self.match_condition[num]=="and":
             if False not in verifier:
                 flag='1'
-                output.result(flag,self.id[num])
+                output.result(flag,target,self.id[num],self.exp[num])
             else:
                 flag='2'
-                output.result(flag,self.id[num])
+                output.result(flag,target,self.id[num],self.exp[num])
         elif self.match_condition[num]=="or":
             if True in verifier:
                 flag='1'
-                output.result(flag,self.id[num])
+                output.result(flag,target,self.id[num],self.exp[num])
             else:
                 flag='2'
-                output.result(flag,self.id[num])
+                output.result(flag,target,self.id[num],self.exp[num])
 
 
     #一个默认的请求头

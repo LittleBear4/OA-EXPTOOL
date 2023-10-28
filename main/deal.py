@@ -67,10 +67,11 @@ def Request_head_deal(target):
     try:
         if target is None:
             raise ValueError("target is None")
-        if (":80" in target or ":443" not in target) and ("http" not in target):
+        if not target.startswith("http://") and not target.startswith("https://"):
             target = "http://" + target
         elif ":443" in target and "://" not in target:
             target = "https://" + target
+        #print(target)
         parse1 = parse.urlparse(target)
         #print(parse1)
         port = str(parse1.port) 
@@ -86,6 +87,7 @@ def Request_head_deal(target):
             'path':parse1.path,
         }
         target=item['scheme'].strip()+':'+'//'+item['host'].strip()+':'+item['port'].strip()
+        #print(target)
         return target
     except ValueError as e:
         return None
